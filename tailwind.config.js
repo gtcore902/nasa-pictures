@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 const withMT = require('@material-tailwind/react/utils/withMT');
+const plugin = require('tailwindcss/plugin');
 
 module.exports = withMT({
   content: [
@@ -10,7 +11,18 @@ module.exports = withMT({
   theme: {
     extend: {},
   },
-  plugins: [require('flowbite/plugin')],
+  // plugins: [require('flowbite/plugin')],
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      const newUtilities = {
+        '.box-custom': {
+          boxShadow:
+            '0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0)',
+        },
+      };
+      addUtilities(newUtilities);
+    }),
+  ],
 });
 
 // module.exports = {

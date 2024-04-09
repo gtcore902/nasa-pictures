@@ -1,11 +1,11 @@
 import Header from '../components/Header';
-import Caroussel from '../components/Caroussel';
+import Content from '../components/Content';
 
 const Home = () => {
   return (
-    <div>
+    <div className="flex-col ">
       <Header />
-      <Caroussel />
+      <Content />
     </div>
   );
 };
