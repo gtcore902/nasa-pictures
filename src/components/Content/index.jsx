@@ -69,7 +69,7 @@ const Content = () => {
         >
           {datas.map((data, index) => (
             <img
-              className="flex-auto w-full text-center"
+              className="flex-custom w-full text-center"
               src={data.img_src}
               key={index}
               alt=""
