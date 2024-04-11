@@ -11,7 +11,6 @@ module.exports = withMT({
   theme: {
     extend: {},
   },
-  // plugins: [require('flowbite/plugin')],
   plugins: [
     plugin(function ({ addUtilities }) {
       const newUtilities = {
@@ -21,6 +20,9 @@ module.exports = withMT({
         },
         '.flex-custom': {
           flex: '0 0 auto',
+        },
+        '.bcc-footer': {
+          backgroundColor: '#c0c0aa',
         },
       };
       addUtilities(newUtilities);

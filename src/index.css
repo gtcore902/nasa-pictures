@@ -3,4 +3,19 @@
 @tailwind utilities;
 
 body {
+  background-image: linear-gradient(
+    45deg,
+    hsl(60deg 15% 71%) 0%,
+    hsl(60deg 15% 74%) 11%,
+    hsl(60deg 15% 77%) 22%,
+    hsl(59deg 15% 80%) 33%,
+    hsl(59deg 15% 84%) 44%,
+    hsl(59deg 15% 87%) 56%,
+    hsl(59deg 15% 90%) 67%,
+    hsl(59deg 16% 93%) 78%,
+    hsl(59deg 16% 97%) 89%,
+    hsl(0deg 0% 100%) 100%
+  );
+  background-repeat: no-repeat;
+  min-height: 100dvh;
 }

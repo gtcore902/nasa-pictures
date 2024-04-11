@@ -41,9 +41,15 @@ const Content = () => {
     try {
       const response = await fetch(url);
       let datas = await response.json();
-      setDatas(datas.latest_photos);
-
-      console.log(datas);
+      console.log();
+      if (response.status === 200) {
+        setDatas(datas.latest_photos);
+        // console.log(response);
+        console.log(datas);
+      }
+      if (response.status !== 200) {
+        console.log(response.status);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -62,7 +68,7 @@ const Content = () => {
 
   return (
     <div className="">
-      <div className="w-1/2 max-w-1200px my-0 mx-auto truncate relative rounded box-custom">
+      <div className="w-3/4 max-w-5xl h-auto my-8 mx-auto truncate relative rounded box-custom">
         <div
           className="flex transition-transform"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -97,7 +103,12 @@ const Content = () => {
           </button>
         )}
       </div>
-      <p className="text-center">{currentDescription}</p>
+      <h3 className="w-3/4 max-w-5xl mx-auto text-center flex justify-between text-2xl font-extrabold dark:text-white">
+        <span>Caméra : {currentDescription} </span>
+        <span>
+          {currentIndex + 1} / {pictures.length}
+        </span>
+      </h3>
     </div>
   );
 };
