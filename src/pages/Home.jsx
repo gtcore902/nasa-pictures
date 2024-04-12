@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 
 const Home = () => {
   return (
-    <div className="flex-col mx-auto">
+    <div className="flex-col mx-auto relative">
       <Header />
       <Content />
       <Footer />
