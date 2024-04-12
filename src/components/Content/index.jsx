@@ -21,19 +21,20 @@ const Content = () => {
     curiosity: 'curiosity',
   };
 
+  /**
+   * Set previous slides functions
+   */
   const goToPrevSlide = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
-      setCurrentPicture(pictures[currentIndex]);
-      setCurrentDescription(datas[currentIndex].camera.name);
     }
   };
-
+  /**
+   * Set next slides functions
+   */
   const goToNextSlide = () => {
     if (currentIndex < pictures.length - 1) {
       setCurrentIndex(currentIndex + 1);
-      setCurrentPicture(pictures[currentIndex]);
-      setCurrentDescription(datas[currentIndex].camera.name);
     }
   };
 
@@ -46,6 +47,7 @@ const Content = () => {
         setDatas(datas.latest_photos);
         // console.log(response);
         console.log(datas);
+        console.log(datas);
       }
       if (response.status !== 200) {
         console.log(response.status);
@@ -55,19 +57,33 @@ const Content = () => {
     }
   };
 
+  /**
+   * Launch fetch request
+   */
   useEffect(() => {
     fetchDatas(`${rovers.perseverance.url}`);
   }, []);
 
+  /**
+   * Set pictures & current camera when datas is loaded
+   */
   useEffect(() => {
     const picturesArray = [];
     datas.map((data) => picturesArray.push(data.img_src));
     setPictures(picturesArray);
     setCurrentDescription(datas[currentIndex]?.camera?.name);
-  }, [datas]);
+  }, [datas, currentIndex]);
+
+  /**
+   * Set current picture & current camera when currentIndex is updated
+   */
+  useEffect(() => {
+    setCurrentPicture(pictures[currentIndex]);
+    setCurrentDescription(datas[currentIndex]?.camera?.name);
+  }, [datas, pictures, currentIndex]);
 
   return (
-    <div className="">
+    <div className="mb-8">
       <div className="w-3/4 max-w-5xl h-auto my-8 mx-auto truncate relative rounded box-custom">
         <div
           className="flex transition-transform"
@@ -103,12 +119,15 @@ const Content = () => {
           </button>
         )}
       </div>
-      <h3 className="w-3/4 max-w-5xl mx-auto text-center flex justify-between text-2xl font-extrabold dark:text-white">
-        <span>Caméra : {currentDescription} </span>
+      <p className="w-3/4 max-w-5xl mx-auto text-center text-2xl font-extrabold dark:text-white">
+        Caméra {currentDescription}
+      </p>
+      <p className="w-3/4 max-w-5xl mx-auto text-center flex justify-between text-2xl font-extrabold dark:text-white">
+        <span>Date : {datas[0]?.earth_date} </span>
         <span>
           {currentIndex + 1} / {pictures.length}
         </span>
-      </h3>
+      </p>
     </div>
   );
 };
