@@ -4,10 +4,10 @@ import Footer from '../components/Footer';
 
 const Home = () => {
   return (
-    <div className="flex-col mx-auto relative">
+    <div>
       <Header />
       <Content />
-      <Footer />
+      <Footer style="bcc-footer p-8 mt-32 border-t border-t-gray-700 text-center" />
     </div>
   );
 };

@@ -83,8 +83,8 @@ const Content = () => {
   }, [datas, pictures, currentIndex]);
 
   return (
-    <div className="mb-8">
-      <div className="w-3/4 max-w-5xl h-auto my-8 mx-auto truncate relative rounded box-custom">
+    <div className="mb-8 mx-2">
+      <div className="w-full md:w-3/4 max-w-5xl h-auto md:my-8 mx-auto truncate relative rounded box-custom">
         <div
           className="flex transition-transform"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -119,10 +119,10 @@ const Content = () => {
           </button>
         )}
       </div>
-      <p className="w-3/4 max-w-5xl mx-auto text-center text-2xl font-extrabold dark:text-white">
+      <p className="w-3/4 max-w-5xl mx-auto text-center text-xl font-extrabold dark:text-white">
         Caméra {currentDescription}
       </p>
-      <p className="w-3/4 max-w-5xl mx-auto text-center flex justify-between text-2xl font-extrabold dark:text-white">
+      <p className="w-3/4 max-w-5xl mx-auto text-center flex justify-between text-xl font-extrabold dark:text-white">
         <span>Date : {datas[0]?.earth_date} </span>
         <span>
           {currentIndex + 1} / {pictures.length}

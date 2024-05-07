@@ -1,25 +1,61 @@
 import { Link } from 'react-router-dom';
+import { initializeApp } from 'firebase/app';
+
+import { getAuth, signOut } from 'firebase/auth';
+import config from '../../firebase-config';
 
 const Header = () => {
+  // Firebase project configuration
+  const firebaseConfig = {
+    apiKey: config.apiKey,
+    authDomain: config.authDomain,
+    projectId: config.projectId,
+    storageBucket: config.storageBucket,
+    messagingSenderId: config.messagingSenderId,
+    appId: config.appId,
+  };
+  const app = initializeApp(firebaseConfig);
+
+  const auth = getAuth();
+  const logout = async () => {
+    signOut(auth)
+      .then(() => {
+        console.log('Sign-out successful');
+      })
+      .catch((error) => {
+        console.log('An error happened');
+      });
+  };
   return (
-    <div className="mx-32 my-8">
-      <div className="flex justify-between">
+    <div className="text-center md:text-left mx-2 my-8 md:mx-32 md:my-8">
+      <div className="flex flex-col lg:flex-row justify-between">
         <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
           Last pictures from Mars
         </h1>
-        <div className="flex items-center">
-          <button
-            type="button"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          >
-            S'inscrire
-          </button>
-          <Link to="./signup ">
+        <div className="flex flex-col md:flex-row justify-center items-center">
+          <Link to="/signup">
             <button
               type="button"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              className="text-white w-40 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            >
+              S'inscrire
+            </button>
+          </Link>
+          <Link to="/signin ">
+            <button
+              type="button"
+              className="text-white w-40 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             >
               Se connecter
+            </button>
+          </Link>
+          <Link>
+            <button
+              onClick={logout}
+              type="button"
+              className="text-white w-40 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            >
+              Se déconnecter
             </button>
           </Link>
         </div>

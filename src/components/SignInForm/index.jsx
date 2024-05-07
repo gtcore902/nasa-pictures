@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import config from '../../firebase-config';
 
-const SignUpForm = () => {
+const SignInForm = () => {
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -18,21 +18,21 @@ const SignUpForm = () => {
   };
   const app = initializeApp(firebaseConfig);
   const auth = getAuth();
-  const createUser = async (email, password) => {
-    createUserWithEmailAndPassword(auth, email, password)
+  const loginUser = async (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed up
+        // Signed in
         const user = userCredential.user;
         setErrorMessage('');
         setInputs({});
-        console.log('User created successfully!', user.uid);
+        console.log('Authentification OK!', user.uid);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        errorCode === 'auth/email-already-in-use' &&
-          console.log('Email already in use!');
-        setErrorMessage('Email already in use!');
+        errorCode === 'auth/invalid-credential' &&
+          console.log('Authentification failed!');
+        setErrorMessage('Authentification failed!');
         console.log(errorCode, errorMessage);
       });
   };
@@ -49,7 +49,7 @@ const SignUpForm = () => {
     // alert(inputs);
     // Controls entries here
     // Firebase function comes here
-    createUser(inputs.email, inputs.password);
+    loginUser(inputs.email, inputs.password);
   };
   return (
     <div>
@@ -118,4 +118,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default SignInForm;

@@ -1,6 +1,6 @@
-const Footer = () => {
+const Footer = ({ style }) => {
   return (
-    <div className="bcc-footer p-8 mt-32 border-t border-t-gray-700 text-center">
+    <div className={style}>
       <p>
         Thanks to <a href="https://api.nasa.gov/">api.nasa.gov</a>
       </p>
