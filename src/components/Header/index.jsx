@@ -27,36 +27,29 @@ const Header = () => {
       });
   };
   return (
-    <div className="text-center md:text-left mx-2 my-8 md:mx-32 md:my-8">
+    <div className="text-center md:text-left mx-2 my-8 md:mx-32 md:my-8 lg:mx-32">
       <div className="flex flex-col lg:flex-row justify-between">
         <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
           Last pictures from Mars
         </h1>
         <div className="flex flex-col md:flex-row justify-center items-center">
-          <Link to="/signup">
-            <button
-              type="button"
-              className="text-white w-40 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            >
-              Signup
-            </button>
+          <Link
+            to="/signup"
+            className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+          >
+            SignUp
           </Link>
-          <Link to="/signin ">
-            <button
-              type="button"
-              className="text-white w-40 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            >
-              Signin
-            </button>
+          <Link
+            to="/signin"
+            className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+          >
+            SignIn
           </Link>
-          <Link>
-            <button
-              onClick={logout}
-              type="button"
-              className="text-white w-40 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            >
-              Logout
-            </button>
+          <Link
+            className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            onClick={logout}
+          >
+            Logout
           </Link>
         </div>
       </div>
