@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     45deg,
     hsl(60deg 15% 71%) 0%,
     hsl(60deg 15% 74%) 11%,
@@ -15,7 +15,8 @@ html {
     hsl(59deg 16% 93%) 78%,
     hsl(59deg 16% 97%) 89%,
     hsl(0deg 0% 100%) 100%
-  );
+  ); */
+  background-image: linear-gradient(to left, #ffffff, #f6f6f3);
   background-repeat: no-repeat;
   min-height: 100dvh;
 }
