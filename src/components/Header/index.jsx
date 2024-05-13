@@ -60,7 +60,7 @@ const Header = () => {
           </Link>
         </div>
       </div>
-      <h2 className="text-4xl font-extrabold dark:text-white my-16">
+      <h2 className="text-4xl font-extrabold dark:text-white mt-8 mb-16">
         Latest photos sent from the Perseverance rover on Mars
       </h2>
     </div>
