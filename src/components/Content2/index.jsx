@@ -9,6 +9,7 @@ const Content2 = () => {
   const [picturesSecondCol, setPicturesSecondColumn] = useState([]);
   const [picturesLastCol, setPicturesLastCol] = useState([]);
   const [listCam, setListCam] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const rovers = {
     perseverance: {
@@ -26,7 +27,6 @@ const Content2 = () => {
       if (response.status === 200) {
         setDatas(datas.latest_photos);
         console.log(datas);
-        console.log(datas);
       }
       if (response.status !== 200) {
         console.log(response.status);
@@ -43,22 +43,30 @@ const Content2 = () => {
     fetchDatas(`${rovers.perseverance.url}`);
   }, []);
 
+  useEffect(() => {
+    setFilteredDatas(datas);
+  }, [datas]);
   /**
    * Dispatch all images for all columns of grid
    */
   useEffect(() => {
     const picturesArray = [];
-    setFilteredDatas(datas);
+    // setFilteredDatas(datas);
     filteredDatas.map((data) => picturesArray.push(data.img_src));
     setPictures(picturesArray);
-    setPicturesFirstColumn(pictures.slice(0, Math.ceil(pictures.length / 3)));
+    setPicturesFirstColumn(
+      picturesArray.slice(0, Math.ceil(picturesArray.length / 3))
+    );
     setPicturesSecondColumn(
-      pictures.slice(
-        Math.ceil(pictures.length / 3),
-        Math.ceil(pictures.length / 3) * 2
+      picturesArray.slice(
+        Math.ceil(picturesArray.length / 3),
+        Math.ceil(picturesArray.length / 3) * 2
       )
     );
-    setPicturesLastCol(pictures.slice(Math.ceil(pictures.length / 3) * 2));
+    setPicturesLastCol(
+      picturesArray.slice(Math.ceil(picturesArray.length / 3) * 2)
+    );
+    setIsLoading(false);
   }, [datas, filteredDatas]);
 
   /**
@@ -95,29 +103,33 @@ const Content2 = () => {
           </button>
         ))}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 items-start md:text-left mx-2 my-8 md:mx-32 md:my-8 max-w-[1920px]">
-        <div className="grid grid-cols-1 gap-2">
-          {picturesFirstCol.map((picture, index) => (
-            <div key={index} className="">
-              <img className="w-full" key={index} src={picture} alt="" />
-            </div>
-          ))}
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 items-start md:text-left mx-2 my-8 md:mx-32 md:my-8 max-w-[1920px]">
+          <div className="grid grid-cols-1 gap-2">
+            {picturesFirstCol.map((picture, index) => (
+              <div key={index} className="">
+                <img className="w-full" key={index} src={picture} alt="" />
+              </div>
+            ))}
+          </div>
+          <div className="grid grid-cols-1 gap-2">
+            {picturesSecondCol.map((picture, index) => (
+              <div key={index} className="">
+                <img className="w-full" key={index} src={picture} alt="" />
+              </div>
+            ))}
+          </div>
+          <div className="grid grid-cols-1 gap-2">
+            {picturesLastCol.map((picture, index) => (
+              <div key={index} className="">
+                <img className="w-full" key={index} src={picture} alt="" />
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="grid grid-cols-1 gap-2">
-          {picturesSecondCol.map((picture, index) => (
-            <div key={index} className="">
-              <img className="w-full" key={index} src={picture} alt="" />
-            </div>
-          ))}
-        </div>
-        <div className="grid grid-cols-1 gap-2">
-          {picturesLastCol.map((picture, index) => (
-            <div key={index} className="">
-              <img className="w-full" key={index} src={picture} alt="" />
-            </div>
-          ))}
-        </div>
-      </div>
+      )}
     </div>
   );
 };
