@@ -66,7 +66,7 @@ const Content2 = () => {
   useEffect(() => {
     const camList = new Set();
     datas.filter((data) => camList.add(data?.camera?.name));
-    console.log(camList);
+    setListCam(camList);
   }, [datas]);
 
   return (
