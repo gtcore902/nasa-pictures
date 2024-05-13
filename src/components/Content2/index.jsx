@@ -89,11 +89,11 @@ const Content2 = () => {
   };
 
   return (
-    <div>
+    <div className="max-w-[1920px] mx-auto">
       <h3 className="text-center text-2xl font-extrabold dark:text-white my-16">
         Date : {datas[0]?.earth_date}
       </h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-2 my-8 md:mx-32 md:my-8 max-w-[1920px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-2 my-8 md:mx-32 md:my-8">
         {Array.from(listCam).map((camera, index) => (
           <button
             key={index}
@@ -108,7 +108,7 @@ const Content2 = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 items-start md:text-left mx-2 my-8 md:mx-32 md:my-8 max-w-[1920px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 items-start md:text-left mx-2 my-8 md:mx-32 md:my-8">
           <div className="grid grid-cols-1 gap-2">
             {picturesFirstCol.map((picture, index) => (
               <div key={index} className="">
