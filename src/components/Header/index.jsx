@@ -32,7 +32,7 @@ const Header = () => {
         <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
           Last pictures from Mars
         </h1>
-        <div className="flex flex-col md:flex-row justify-center items-center">
+        <div className="flex flex-row justify-center items-center">
           <Link
             to="/signup"
             className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
@@ -53,7 +53,7 @@ const Header = () => {
           </Link>
         </div>
       </div>
-      <h2 className="text-4xl font-extrabold dark:text-white mt-8 mb-16">
+      <h2 className="text-xl text-gray-600 dark:text-white mt-8 mb-16">
         Latest photos sent from the Perseverance rover on Mars
       </h2>
     </div>

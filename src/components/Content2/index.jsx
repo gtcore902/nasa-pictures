@@ -90,14 +90,18 @@ const Content2 = () => {
 
   return (
     <div className="max-w-[1920px] mx-auto">
-      <h3 className="text-center text-2xl font-extrabold dark:text-white my-16">
-        Date : {datas[0]?.earth_date}
+      <h3 className="text-center text-md text-gray-600 dark:text-white my-8">
+        The {datas[0].rover?.name} rover, launched on{' '}
+        {datas[0]?.rover?.launch_date}, landed on Mars on{' '}
+        {datas[0]?.rover?.landing_date} and sent {datas?.length} photos back to
+        Earth on {datas[0]?.earth_date} on Martian sol{' '}
+        {datas[0]?.rover?.max_sol}.
       </h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-2 my-8 md:mx-32 md:my-8">
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-x-[24px] mx-2 my-8 md:mx-32 md:my-8">
         {Array.from(listCam).map((camera, index) => (
           <button
             key={index}
-            className="w-auto text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:text-white focus:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
+            className="w-auto text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:text-white focus:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
             id={camera}
             onClick={(event) => sortCam(event)}
           >
@@ -108,22 +112,27 @@ const Content2 = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 items-start md:text-left mx-2 my-8 md:mx-32 md:my-8">
-          <div className="grid grid-cols-1 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px] items-start md:text-left mx-2 my-8 md:mx-32 md:my-8">
+          <div className="grid grid-cols-1 gap-[24px]">
             {picturesFirstCol.map((picture, index) => (
               <div key={index} className="">
-                <img className="w-full" key={index} src={picture} alt="" />
+                <img
+                  className="w-full"
+                  key={index}
+                  src={picture}
+                  alt={picture}
+                />
               </div>
             ))}
           </div>
-          <div className="grid grid-cols-1 gap-2">
+          <div className="grid grid-cols-1 gap-[24px]">
             {picturesSecondCol.map((picture, index) => (
               <div key={index} className="">
                 <img className="w-full" key={index} src={picture} alt="" />
               </div>
             ))}
           </div>
-          <div className="grid grid-cols-1 gap-2">
+          <div className="grid grid-cols-1 gap-[24px]">
             {picturesLastCol.map((picture, index) => (
               <div key={index} className="">
                 <img className="w-full" key={index} src={picture} alt="" />
