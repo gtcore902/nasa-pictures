@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import config from '../../firebase-config';
+import { useStore } from 'react-redux';
 
 const SignInForm = () => {
+  const store = useStore();
+  const [isConnected, setIsConnected] = useState(
+    store.getState().connectedState
+  );
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -23,6 +28,7 @@ const SignInForm = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        store.dispatch({ type: 'IS_CONNECTED', payload: true });
         setErrorMessage('');
         setInputs({});
         console.log('Authentification OK!', user.uid);
@@ -51,6 +57,11 @@ const SignInForm = () => {
     // Firebase function comes here
     loginUser(inputs.email, inputs.password);
   };
+
+  useEffect(() => {
+    store.subscribe(() => setIsConnected(store.getState().connectedState));
+  }, []);
+
   return (
     <div>
       <form onSubmit={handleSubmit} className="max-w-sm mx-auto mb-8">

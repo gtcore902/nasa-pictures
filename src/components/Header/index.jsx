@@ -1,10 +1,15 @@
 import { Link } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
-
 import { getAuth, signOut } from 'firebase/auth';
 import config from '../../firebase-config';
+import { useStore } from 'react-redux';
+import { useState, useEffect } from 'react';
 
 const Header = () => {
+  const store = useStore();
+  const [isConnected, setIsConnected] = useState(
+    store.getState().connectedState
+  );
   // Firebase project configuration
   const firebaseConfig = {
     apiKey: config.apiKey,
@@ -20,12 +25,18 @@ const Header = () => {
   const logout = async () => {
     signOut(auth)
       .then(() => {
+        store.dispatch({ type: 'IS_CONNECTED', payload: false });
         console.log('Sign-out successful');
       })
       .catch((error) => {
         console.log('An error happened');
       });
   };
+
+  useEffect(() => {
+    store.subscribe(() => setIsConnected(store.getState().connectedState));
+  }, []);
+
   return (
     <div className="text-center md:text-left mx-2 my-8 md:mx-32 md:my-8 lg:mx-32">
       <div className="flex flex-col lg:flex-row justify-between">
@@ -33,24 +44,30 @@ const Header = () => {
           Last pictures from Mars
         </h1>
         <div className="flex flex-row justify-center items-center">
-          <Link
-            to="/signup"
-            className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
-          >
-            SignUp
-          </Link>
-          <Link
-            to="/signin"
-            className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
-          >
-            SignIn
-          </Link>
-          <Link
-            className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
-            onClick={logout}
-          >
-            Logout
-          </Link>
+          {!isConnected && (
+            <Link
+              to="/signup"
+              className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            >
+              SignUp
+            </Link>
+          )}
+          {!isConnected && (
+            <Link
+              to="/signin"
+              className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            >
+              SignIn
+            </Link>
+          )}
+          {isConnected && (
+            <Link
+              className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              onClick={logout}
+            >
+              Logout
+            </Link>
+          )}
         </div>
       </div>
       <h2 className="text-2xl text-gray-600 dark:text-white mt-8 mb-16">

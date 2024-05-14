@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import config from '../../firebase-config';
+import { useStore } from 'react-redux';
 
 const SignUpForm = () => {
+  const store = useStore();
+  const [isConnected, setIsConnected] = useState(
+    store.getState().connectedState
+  );
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -24,6 +29,7 @@ const SignUpForm = () => {
         // Signed up
         const user = userCredential.user;
         setErrorMessage('');
+        store.dispatch({ type: 'IS_CONNECTED', payload: true });
         setInputs({});
         console.log('User created successfully!', user.uid);
       })
@@ -51,6 +57,11 @@ const SignUpForm = () => {
     // Firebase function comes here
     createUser(inputs.email, inputs.password);
   };
+
+  useEffect(() => {
+    store.subscribe(() => setIsConnected(store.getState().connectedState));
+  }, []);
+
   return (
     <div>
       <form onSubmit={handleSubmit} className="max-w-sm mx-auto mb-8">
