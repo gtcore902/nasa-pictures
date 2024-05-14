@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { API_KEY } from '../../API_KEYS';
+import roverPicture from '../../assets/rover-robot.svg';
 
 const Content2 = () => {
   const [datas, setDatas] = useState([]);
   const [description, setDescription] = useState({});
   const [filteredDatas, setFilteredDatas] = useState([]);
-  const [pictures, setPictures] = useState([]);
+  // const [pictures, setPictures] = useState([]);
   const [picturesFirstCol, setPicturesFirstColumn] = useState([]);
   const [picturesSecondCol, setPicturesSecondColumn] = useState([]);
   const [picturesLastCol, setPicturesLastCol] = useState([]);
@@ -28,6 +29,7 @@ const Content2 = () => {
       if (response.status === 200) {
         setDatas(datas.latest_photos);
         console.log(datas);
+        setIsLoading(false);
       }
       if (response.status !== 200) {
         console.log(response.status);
@@ -53,9 +55,8 @@ const Content2 = () => {
    */
   useEffect(() => {
     const picturesArray = [];
-    // setFilteredDatas(datas);
     filteredDatas.map((data) => picturesArray.push(data.img_src));
-    setPictures(picturesArray);
+    // setPictures(picturesArray);
     setPicturesFirstColumn(
       picturesArray.slice(0, Math.ceil(picturesArray.length / 3))
     );
@@ -68,7 +69,6 @@ const Content2 = () => {
     setPicturesLastCol(
       picturesArray.slice(Math.ceil(picturesArray.length / 3) * 2)
     );
-    setIsLoading(false);
   }, [datas, filteredDatas]);
 
   /**
@@ -112,7 +112,11 @@ const Content2 = () => {
         ))}
       </div>
       {isLoading ? (
-        <p>Loading...</p>
+        <img
+          src={roverPicture}
+          className="max-w-24 animate-pulse mx-auto"
+          alt="Rover illustration"
+        />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px] items-start md:text-left mx-2 my-8 md:mx-32 md:my-8">
           <div className="grid grid-cols-1 gap-[24px]">
