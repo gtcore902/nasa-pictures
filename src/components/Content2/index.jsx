@@ -3,6 +3,7 @@ import { API_KEY } from '../../API_KEYS';
 
 const Content2 = () => {
   const [datas, setDatas] = useState([]);
+  const [description, setDescription] = useState({});
   const [filteredDatas, setFilteredDatas] = useState([]);
   const [pictures, setPictures] = useState([]);
   const [picturesFirstCol, setPicturesFirstColumn] = useState([]);
@@ -45,6 +46,7 @@ const Content2 = () => {
 
   useEffect(() => {
     setFilteredDatas(datas);
+    setDescription(datas[0]);
   }, [datas]);
   /**
    * Dispatch all images for all columns of grid
@@ -90,12 +92,12 @@ const Content2 = () => {
 
   return (
     <div className="max-w-[1920px] mx-auto">
-      <h3 className="text-center text-md text-gray-600 dark:text-white my-8">
-        The {datas[0].rover?.name} rover, launched on{' '}
-        {datas[0]?.rover?.launch_date}, landed on Mars on{' '}
-        {datas[0]?.rover?.landing_date} and sent {datas?.length} photos back to
-        Earth on {datas[0]?.earth_date} on Martian sol{' '}
-        {datas[0]?.rover?.max_sol}.
+      <h3 className="text-lg text-center md:text-left text-gray-800 dark:text-white mx-2 my-8 md:mx-32">
+        The {description?.rover?.name} rover, launched on{' '}
+        {description?.rover?.launch_date}, landed on Mars on{' '}
+        {description?.rover?.landing_date}, and sent, with {listCam.length - 1}{' '}
+        cameras, {datas?.length} photos back to Earth on{' '}
+        {description?.earth_date} on Martian sol {description?.sol}.
       </h3>
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-x-[24px] mx-2 my-8 md:mx-32 md:my-8">
         {Array.from(listCam).map((camera, index) => (
