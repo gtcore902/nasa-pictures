@@ -1,15 +1,14 @@
+import { Context } from '../../Context';
 import { Link } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signOut } from 'firebase/auth';
 import config from '../../firebase-config';
-import { useStore } from 'react-redux';
-import { useState, useEffect } from 'react';
+// import { useStore } from 'react-redux';
+import { useContext, useState, useEffect } from 'react';
 
 const Header = () => {
-  const store = useStore();
-  const [isConnected, setIsConnected] = useState(
-    store.getState().connectedState
-  );
+  const { isLogged, toggleLogin } = useContext(Context);
+
   // Firebase project configuration
   const firebaseConfig = {
     apiKey: config.apiKey,
@@ -25,17 +24,13 @@ const Header = () => {
   const logout = async () => {
     signOut(auth)
       .then(() => {
-        store.dispatch({ type: 'IS_CONNECTED', payload: false });
+        toggleLogin();
         console.log('Sign-out successful');
       })
       .catch((error) => {
         console.log('An error happened');
       });
   };
-
-  useEffect(() => {
-    store.subscribe(() => setIsConnected(store.getState().connectedState));
-  }, []);
 
   return (
     <div className="text-center md:text-left mx-2 my-8 md:mx-32 md:my-8 lg:mx-32">
@@ -44,7 +39,7 @@ const Header = () => {
           Last pictures from Mars
         </h1>
         <div className="flex flex-row justify-center items-center">
-          {!isConnected && (
+          {!isLogged && (
             <Link
               to="/signup"
               className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
@@ -52,7 +47,7 @@ const Header = () => {
               SignUp
             </Link>
           )}
-          {!isConnected && (
+          {!isLogged && (
             <Link
               to="/signin"
               className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
@@ -60,7 +55,7 @@ const Header = () => {
               SignIn
             </Link>
           )}
-          {isConnected && (
+          {isLogged && (
             <Link
               className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
               onClick={logout}

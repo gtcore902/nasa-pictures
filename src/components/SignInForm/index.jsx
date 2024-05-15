@@ -1,14 +1,12 @@
-import { useState, useEffect } from 'react';
+import { Context } from '../../Context';
+import { Navigate } from 'react-router-dom';
+import { useContext, useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import config from '../../firebase-config';
-import { useStore } from 'react-redux';
 
 const SignInForm = () => {
-  const store = useStore();
-  const [isConnected, setIsConnected] = useState(
-    store.getState().connectedState
-  );
+  const { isLogged, toggleLogin } = useContext(Context);
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -28,7 +26,7 @@ const SignInForm = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        store.dispatch({ type: 'IS_CONNECTED', payload: true });
+        toggleLogin();
         setErrorMessage('');
         setInputs({});
         console.log('Authentification OK!', user.uid);
@@ -59,11 +57,12 @@ const SignInForm = () => {
   };
 
   useEffect(() => {
-    store.subscribe(() => setIsConnected(store.getState().connectedState));
+    console.log(isLogged);
   }, []);
 
   return (
     <div>
+      {isLogged && <Navigate to="/" replace={true} />}
       <form onSubmit={handleSubmit} className="max-w-sm mx-auto mb-8">
         <div className="mb-5">
           <label

@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
+import { Context } from '../../Context';
+import { Navigate } from 'react-router-dom';
+import { useContext, useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import config from '../../firebase-config';
-import { useStore } from 'react-redux';
 
 const SignUpForm = () => {
-  const store = useStore();
-  const [isConnected, setIsConnected] = useState(
-    store.getState().connectedState
-  );
+  const { isLogged, toggleLogin } = useContext(Context);
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
+
+  isLogged && <Navigate to="/" replace={true} />;
 
   // Firebase project configuration
   const firebaseConfig = {
@@ -29,7 +29,7 @@ const SignUpForm = () => {
         // Signed up
         const user = userCredential.user;
         setErrorMessage('');
-        store.dispatch({ type: 'IS_CONNECTED', payload: true });
+        toggleLogin();
         setInputs({});
         console.log('User created successfully!', user.uid);
       })
@@ -59,7 +59,7 @@ const SignUpForm = () => {
   };
 
   useEffect(() => {
-    store.subscribe(() => setIsConnected(store.getState().connectedState));
+    console.log(isLogged);
   }, []);
 
   return (
