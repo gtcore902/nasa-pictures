@@ -10,8 +10,6 @@ const SignUpForm = () => {
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
 
-  isLogged && <Navigate to="/" replace={true} />;
-
   // Firebase project configuration
   const firebaseConfig = {
     apiKey: config.apiKey,
@@ -64,6 +62,7 @@ const SignUpForm = () => {
 
   return (
     <div>
+      {isLogged && <Navigate to="/" replace={true} />}
       <form onSubmit={handleSubmit} className="max-w-sm mx-auto mb-8">
         <div className="mb-5">
           <label
