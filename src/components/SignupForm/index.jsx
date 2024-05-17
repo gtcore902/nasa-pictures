@@ -4,6 +4,7 @@ import { useContext, useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import config from '../../firebase-config';
+import { handleChange, handleSubmit } from '../../HandleForms';
 
 const SignUpForm = () => {
   const { isLogged, toggleLogin } = useContext(Context);
@@ -43,47 +44,47 @@ const SignUpForm = () => {
       });
   };
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
-    console.log(inputs);
-  };
+  // const handleChange = (event) => {
+  //   const name = event.target.name;
+  //   const value = event.target.value;
+  //   setInputs((values) => ({ ...values, [name]: value }));
+  //   // console.log(inputs);
+  // };
 
-  /**
-   * Check user email
-   * @param {string} userMail
-   * @returns boolean
-   */
-  const validateEmail = (userMail) => {
-    console.log(typeof userMail);
-    let regexEmail = new RegExp('[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+');
-    return regexEmail.test(userMail);
-  };
-  /**
-   * Check user password
-   * @param {string} userMessage
-   * @returns boolean
-   */
-  const validatePassword = (userMessage) => {
-    if (userMessage !== undefined) {
-      userMessage = userMessage.trim();
-      setErrorMessage('');
-      return userMessage.length >= 5;
-    }
-  };
+  // /**
+  //  * Check user email
+  //  * @param {string} userMail
+  //  * @returns boolean
+  //  */
+  // const validateEmail = (userMail) => {
+  //   console.log(typeof userMail);
+  //   let regexEmail = new RegExp('[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+');
+  //   return regexEmail.test(userMail);
+  // };
+  // /**
+  //  * Check user password
+  //  * @param {string} userMessage
+  //  * @returns boolean
+  //  */
+  // const validatePassword = (userMessage) => {
+  //   if (userMessage !== undefined) {
+  //     userMessage = userMessage.trim();
+  //     setErrorMessage('');
+  //     return userMessage.length >= 5;
+  //   }
+  // };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setErrorEmail(!validateEmail(inputs.email) ? 'Invalide email!' : '');
-    setErrorPassword(
-      !validatePassword(inputs.password)
-        ? 'Too short, must be > 5 characters!'
-        : ''
-    );
-    validateEmail(inputs.email) & validatePassword(inputs.password) &&
-      createUser(inputs.email, inputs.password);
-  };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   setErrorEmail(!validateEmail(inputs.email) ? 'Invalide email!' : '');
+  //   setErrorPassword(
+  //     !validatePassword(inputs.password)
+  //       ? 'Too short, must be > 5 characters!'
+  //       : ''
+  //   );
+  //   validateEmail(inputs.email) & validatePassword(inputs.password) &&
+  //     createUser(inputs.email, inputs.password);
+  // };
 
   useEffect(() => {
     console.log(isLogged);
@@ -92,7 +93,18 @@ const SignUpForm = () => {
   return (
     <div>
       {isLogged && <Navigate to="/" replace={true} />}
-      <form onSubmit={handleSubmit} className="max-w-sm mx-auto mb-8">
+      <form
+        onSubmit={(event) =>
+          handleSubmit(
+            event,
+            setErrorEmail,
+            setErrorPassword,
+            inputs,
+            createUser
+          )
+        }
+        className="max-w-sm mx-auto mb-8"
+      >
         <div className="mb-5">
           <label
             htmlFor="email"
@@ -111,7 +123,7 @@ const SignUpForm = () => {
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="name@example.com"
             required
-            onChange={handleChange}
+            onChange={(event) => handleChange(event, setInputs)}
           />
         </div>
         <div className="mb-5">
@@ -131,7 +143,7 @@ const SignUpForm = () => {
             value={inputs.password || ''}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required
-            onChange={handleChange}
+            onChange={(event) => handleChange(event, setInputs)}
           />
         </div>
         {/* <div className="flex items-start mb-5">
