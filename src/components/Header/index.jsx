@@ -57,6 +57,14 @@ const Header = () => {
           )}
           {isLogged && (
             <Link
+              to="/favourites"
+              className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            >
+              Favourites
+            </Link>
+          )}
+          {isLogged && (
+            <Link
               className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
               onClick={logout}
             >
