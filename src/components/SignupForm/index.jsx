@@ -9,6 +9,8 @@ const SignUpForm = () => {
   const { isLogged, toggleLogin } = useContext(Context);
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
+  const [errorEmail, setErrorEmail] = useState('');
+  const [errorPassword, setErrorPassword] = useState('');
 
   // Firebase project configuration
   const firebaseConfig = {
@@ -48,12 +50,39 @@ const SignUpForm = () => {
     console.log(inputs);
   };
 
+  /**
+   * Check user email
+   * @param {string} userMail
+   * @returns boolean
+   */
+  const validateEmail = (userMail) => {
+    console.log(typeof userMail);
+    let regexEmail = new RegExp('[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+');
+    return regexEmail.test(userMail);
+  };
+  /**
+   * Check user password
+   * @param {string} userMessage
+   * @returns boolean
+   */
+  const validatePassword = (userMessage) => {
+    if (userMessage !== undefined) {
+      userMessage = userMessage.trim();
+      setErrorMessage('');
+      return userMessage.length >= 5;
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    // alert(inputs);
-    // Controls entries here
-    // Firebase function comes here
-    createUser(inputs.email, inputs.password);
+    setErrorEmail(!validateEmail(inputs.email) ? 'Invalide email!' : '');
+    setErrorPassword(
+      !validatePassword(inputs.password)
+        ? 'Too short, must be > 5 characters!'
+        : ''
+    );
+    validateEmail(inputs.email) & validatePassword(inputs.password) &&
+      createUser(inputs.email, inputs.password);
   };
 
   useEffect(() => {
@@ -69,7 +98,10 @@ const SignUpForm = () => {
             htmlFor="email"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            Your email
+            Your email{' '}
+            {errorEmail !== '' && (
+              <span className="text-red-600">{errorEmail}</span>
+            )}
           </label>
           <input
             type="email"
@@ -87,7 +119,10 @@ const SignUpForm = () => {
             htmlFor="password"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            Your password
+            Your password{' '}
+            {errorPassword !== '' && (
+              <span className="text-red-600">{errorPassword}</span>
+            )}
           </label>
           <input
             type="password"
@@ -99,7 +134,7 @@ const SignUpForm = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="flex items-start mb-5">
+        {/* <div className="flex items-start mb-5">
           <div className="flex items-center h-5">
             <input
               id="remember"
@@ -115,7 +150,7 @@ const SignUpForm = () => {
           >
             Remember me
           </label>
-        </div>
+        </div> */}
         <button
           type="submit"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
