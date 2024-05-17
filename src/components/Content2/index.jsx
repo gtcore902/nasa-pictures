@@ -123,7 +123,7 @@ const Content2 = () => {
             {picturesFirstCol.map((picture, index) => (
               <div key={index} className="">
                 <img
-                  className="w-full"
+                  className="w-full opacity-0 animate-fadeIn"
                   key={index}
                   src={picture}
                   alt={picture}
@@ -134,14 +134,24 @@ const Content2 = () => {
           <div className="grid grid-cols-1 gap-[24px]">
             {picturesSecondCol.map((picture, index) => (
               <div key={index} className="">
-                <img className="w-full" key={index} src={picture} alt="" />
+                <img
+                  className="w-full opacity-0 animate-fadeIn"
+                  key={index}
+                  src={picture}
+                  alt=""
+                />
               </div>
             ))}
           </div>
           <div className="grid grid-cols-1 gap-[24px]">
             {picturesLastCol.map((picture, index) => (
               <div key={index} className="">
-                <img className="w-full" key={index} src={picture} alt="" />
+                <img
+                  className="w-full opacity-0 animate-fadeIn"
+                  key={index}
+                  src={picture}
+                  alt=""
+                />
               </div>
             ))}
           </div>

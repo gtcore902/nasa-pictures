@@ -9,7 +9,17 @@ module.exports = withMT({
     'node_modules/flowbite-react/lib/esm/**/*.js',
   ],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+      },
+      animation: {
+        fadeIn: 'fadeIn 1s ease-in-out .15s forwards',
+      },
+    },
   },
   plugins: [
     plugin(function ({ addUtilities }) {
