@@ -16,8 +16,8 @@ html {
     hsl(59deg 16% 97%) 89%,
     hsl(0deg 0% 100%) 100%
   ); */
-  background-image: linear-gradient(to left, #ffffff, #f6f6f3);
-  background-repeat: no-repeat;
+  /* background-image: linear-gradient(to left, #ffffff, #f6f6f3);
+  background-repeat: no-repeat; */
 }
 html,
 body {

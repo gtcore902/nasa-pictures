@@ -11,8 +11,8 @@ const Home = () => {
     <div>
       {!isLogged && <Navigate to="/" replace={true} />}
       <Header />
-      <p>Favourites comes here ...</p>
-      <Footer style="bcc-footer p-8 mt-32 border-t border-t-gray-700 text-center" />
+      <p className="text-center">Favourites comes here ...</p>
+      <Footer style="absolute bottom-0 left-0 right-0  bcc-footer p-8 mt-32 border-t border-t-gray-700 text-center" />
     </div>
   );
 };
