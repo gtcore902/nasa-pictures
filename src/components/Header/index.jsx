@@ -34,15 +34,15 @@ const Header = () => {
 
   return (
     <div className="text-center md:text-left mx-2 md:mx-32 pt-8 lg:mx-32">
-      <div className="flex flex-col lg:flex-row justify-between">
-        <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+      <div className="flex flex-col lg:flex-row justify-between items-center">
+        <h1 className="mb-8 md:mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
           Last pictures from Mars
         </h1>
-        <div className="flex flex-row justify-center items-center">
+        <div className="flex flex-row justify-center items-center gap-2 md:gap-x-[24px] mb-8 md:mb-0">
           {!isLogged && (
             <Link
               to="/signup"
-              className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              className="block px-5 py-2 border border-blue-600 rounded-lg font-medium bg-blue-600 text-white dark:text-blue-500 hover:underline"
             >
               SignUp
             </Link>
@@ -50,7 +50,7 @@ const Header = () => {
           {!isLogged && (
             <Link
               to="/signin"
-              className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              className="block px-5 py-2 border border-blue-600 rounded-lg font-medium text-blue-600 dark:text-blue-500 hover:underline"
             >
               SignIn
             </Link>
@@ -73,7 +73,7 @@ const Header = () => {
           )}
         </div>
       </div>
-      <h2 className="text-2xl text-gray-600 dark:text-white mt-8 mb-16">
+      <h2 className="text-2xl text-gray-600 dark:text-white mt-8 mb-8 md:mb-16 mt-0 md:mt-8">
         Latest photos sent from the Perseverance rover on Mars.
       </h2>
     </div>
