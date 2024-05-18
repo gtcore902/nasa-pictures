@@ -21,7 +21,12 @@ html {
 }
 html,
 body {
+  position: relative;
+  /* display: grid;
+  grid-template-areas: 'head' 'content' 'footer';
+  grid-template-rows: 30px auto 30px; */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  min-height: 100dvh;
 }

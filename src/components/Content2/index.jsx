@@ -91,7 +91,7 @@ const Content2 = () => {
   };
 
   return (
-    <div className="max-w-[1920px] mx-auto">
+    <div className="max-w-[1920px] mx-auto pb-48">
       <h3 className="text-lg text-center md:text-left text-gray-800 dark:text-white mx-2 my-8 md:mx-32">
         The {description?.rover?.name} rover, launched on{' '}
         {description?.rover?.launch_date}, landed on Mars on{' '}

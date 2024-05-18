@@ -33,7 +33,7 @@ const Header = () => {
   };
 
   return (
-    <div className="text-center md:text-left mx-2 my-8 md:mx-32 md:my-8 lg:mx-32">
+    <div className="text-center md:text-left mx-2 md:mx-32 pt-8 lg:mx-32">
       <div className="flex flex-col lg:flex-row justify-between">
         <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
           Last pictures from Mars
