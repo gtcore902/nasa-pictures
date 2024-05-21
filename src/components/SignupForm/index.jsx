@@ -119,7 +119,9 @@ const SignUpForm = () => {
         >
           Submit
         </button>
-        {errorMessage !== '' && <p>{errorMessage}</p>}
+        {errorMessage !== '' && (
+          <p className="text-center my-4 text-red-400">{errorMessage}</p>
+        )}
       </form>
     </div>
   );

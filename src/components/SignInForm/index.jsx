@@ -12,6 +12,7 @@ const SignInForm = () => {
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
+  const [errorPassword, setErrorPassword] = useState('');
 
   // Firebase project configuration
   const firebaseConfig = {
@@ -58,7 +59,13 @@ const SignInForm = () => {
       </h2>
       <form
         onSubmit={(event) =>
-          handleSubmit(event, setErrorEmail, inputs, loginUser)
+          handleSubmit(
+            event,
+            setErrorEmail,
+            setErrorPassword,
+            inputs,
+            loginUser
+          )
         }
         className="max-w-sm mx-auto mb-8"
       >
@@ -123,7 +130,7 @@ const SignInForm = () => {
         >
           Submit
         </button>
-        <p>{errorMessage}</p>
+        <p className="text-center my-4 text-red-400">{errorMessage}</p>
       </form>
     </div>
   );
