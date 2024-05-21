@@ -46,48 +46,6 @@ const SignInForm = () => {
       });
   };
 
-  // const handleChange = (event) => {
-  //   const name = event.target.name;
-  //   const value = event.target.value;
-  //   setInputs((values) => ({ ...values, [name]: value }));
-  //   // console.log(inputs);
-  // };
-
-  // /**
-  //  * Check user email
-  //  * @param {string} userMail
-  //  * @returns boolean
-  //  */
-  // const validateEmail = (userMail) => {
-  //   console.log(typeof userMail);
-  //   let regexEmail = new RegExp('[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+');
-  //   return regexEmail.test(userMail);
-  // };
-  // /**
-  //  * Check user password
-  //  * @param {string} userMessage
-  //  * @returns boolean
-  //  */
-  // const validatePassword = (userMessage) => {
-  //   if (userMessage !== undefined) {
-  //     userMessage = userMessage.trim();
-  //     setErrorMessage('');
-  //     return userMessage.length >= 5;
-  //   }
-  // };
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   setErrorEmail(!validateEmail(inputs.email) ? 'Invalide email!' : '');
-  //   setErrorPassword(
-  //     !validatePassword(inputs.password)
-  //       ? 'Too short, must be > 5 characters!'
-  //       : ''
-  //   );
-  //   validateEmail(inputs.email) & validatePassword(inputs.password) &&
-  //     loginUser(inputs.email, inputs.password);
-  // };
-
   useEffect(() => {
     console.log(isLogged);
     console.log(userId);

@@ -1,9 +1,7 @@
 import { Context } from '../../Context';
 import { Navigate } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
-import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import config from '../../firebase-config';
 import { handleChange, handleSubmit } from '../../HandleForms';
 
 const SignUpForm = () => {
@@ -14,16 +12,6 @@ const SignUpForm = () => {
   const [errorEmail, setErrorEmail] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
 
-  // Firebase project configuration
-  const firebaseConfig = {
-    apiKey: config.apiKey,
-    authDomain: config.authDomain,
-    projectId: config.projectId,
-    storageBucket: config.storageBucket,
-    messagingSenderId: config.messagingSenderId,
-    appId: config.appId,
-  };
-  const app = initializeApp(firebaseConfig);
   const auth = getAuth();
   const createUser = async (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
@@ -45,49 +33,6 @@ const SignUpForm = () => {
         console.log(errorCode, errorMessage);
       });
   };
-
-  // const handleChange = (event) => {
-  //   const name = event.target.name;
-  //   const value = event.target.value;
-  //   setInputs((values) => ({ ...values, [name]: value }));
-  //   // console.log(inputs);
-  // };
-
-  // /**
-  //  * Check user email
-  //  * @param {string} userMail
-  //  * @returns boolean
-  //  */
-  // const validateEmail = (userMail) => {
-  //   console.log(typeof userMail);
-  //   let regexEmail = new RegExp('[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+');
-  //   return regexEmail.test(userMail);
-  // };
-  // /**
-  //  * Check user password
-  //  * @param {string} userMessage
-  //  * @returns boolean
-  //  */
-  // const validatePassword = (userMessage) => {
-  //   if (userMessage !== undefined) {
-  //     userMessage = userMessage.trim();
-  //     setErrorMessage('');
-  //     return userMessage.length >= 5;
-  //   }
-  // };
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   setErrorEmail(!validateEmail(inputs.email) ? 'Invalide email!' : '');
-  //   setErrorPassword(
-  //     !validatePassword(inputs.password)
-  //       ? 'Too short, must be > 5 characters!'
-  //       : ''
-  //   );
-  //   validateEmail(inputs.email) & validatePassword(inputs.password) &&
-  //     createUser(inputs.email, inputs.password);
-  // };
-
   useEffect(() => {
     console.log(isLogged);
   }, []);
