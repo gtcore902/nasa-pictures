@@ -5,6 +5,9 @@ import { getAuth, signOut } from 'firebase/auth';
 import config from '../../firebase-config';
 // import { useStore } from 'react-redux';
 import { useContext, useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faHouse } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
   const { isLogged, toggleLogin } = useContext(Context);
@@ -41,6 +44,13 @@ const Header = () => {
           Last pictures from Mars
         </h1>
         <div className="flex flex-row justify-center items-center gap-2 md:gap-x-[24px] mb-8 md:mb-0">
+          <Link
+            to="/signup"
+            className="block px-5 py-2.5 text-blue-600 dark:text-blue-500"
+          >
+            <FontAwesomeIcon icon={faHouse} size="xl" />
+          </Link>
+
           {!isLogged && (
             <Link
               to="/signup"
@@ -60,7 +70,7 @@ const Header = () => {
           {isLogged && (
             <Link
               to="/favourites"
-              className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 font-black hover:underline"
             >
               Favourites
             </Link>
@@ -70,7 +80,7 @@ const Header = () => {
               className="block px-5 py-2.5 font-medium text-blue-600 dark:text-blue-500 hover:underline"
               onClick={logout}
             >
-              Logout
+              <FontAwesomeIcon icon={faRightFromBracket} size="xl" />
             </Link>
           )}
         </div>
