@@ -30,13 +30,17 @@ const Home = () => {
   // const picturesRef = collection(db, 'GCNPLkhu8wh9MWmzuym1PTPMVAF2');
 
   useEffect(() => {
-    getFavourites(db, userId, setFavourites);
-    console.log(userId);
+    if (isLogged) {
+      getFavourites(db, userId, setFavourites);
+      console.log(userId);
+    }
   }, []);
 
   useEffect(() => {
-    console.log(favourites);
-  }, [favourites]);
+    if (isLogged) {
+      console.log(favourites);
+    }
+  }, [favourites, isLogged]);
 
   return (
     <div>

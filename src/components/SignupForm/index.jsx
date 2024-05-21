@@ -21,7 +21,7 @@ const SignUpForm = () => {
         setErrorMessage('');
         toggleLogin();
         setInputs({});
-        setUser(userCredential.user.uid);
+        setUser(user.uid);
         console.log('User created successfully!', user.uid);
       })
       .catch((error) => {
@@ -40,6 +40,9 @@ const SignUpForm = () => {
   return (
     <div>
       {isLogged && <Navigate to="/" replace={true} />}
+      <h2 className="text-xl font-bold text-center text-blue-600 dark:text-white mt-8 mb-8 md:mb-16 mt-0 md:mt-8">
+        Create your account
+      </h2>
       <form
         onSubmit={(event) =>
           handleSubmit(

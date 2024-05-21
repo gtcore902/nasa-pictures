@@ -7,7 +7,7 @@ const SignIn = () => {
     <div>
       <Header />
       <SignInForm />
-      <Footer style="md:absolute bottom-0 left-0 right-0 bcc-footer p-8 mt-32 border-t border-t-gray-700 text-center" />
+      <Footer style="absolute bottom-0 left-0 right-0 bcc-footer p-8 mt-32 border-t border-t-gray-700 text-center" />
     </div>
   );
 };

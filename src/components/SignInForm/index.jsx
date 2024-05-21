@@ -12,7 +12,6 @@ const SignInForm = () => {
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
-  const [errorPassword, setErrorPassword] = useState('');
 
   // Firebase project configuration
   const firebaseConfig = {
@@ -33,7 +32,7 @@ const SignInForm = () => {
         toggleLogin();
         setErrorMessage('');
         setInputs({});
-        setUser(userCredential.user.uid);
+        setUser(user.uid);
         console.log('Authentification OK!', user.uid);
       })
       .catch((error) => {
@@ -54,15 +53,12 @@ const SignInForm = () => {
   return (
     <div>
       {isLogged && <Navigate to="/" replace={true} />}
+      <h2 className="text-xl font-bold text-center text-blue-600 dark:text-white mt-8 mb-8 md:mb-16 mt-0 md:mt-8">
+        Create your account
+      </h2>
       <form
         onSubmit={(event) =>
-          handleSubmit(
-            event,
-            setErrorEmail,
-            setErrorPassword,
-            inputs,
-            loginUser
-          )
+          handleSubmit(event, setErrorEmail, inputs, loginUser)
         }
         className="max-w-sm mx-auto mb-8"
       >
@@ -93,9 +89,6 @@ const SignInForm = () => {
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Your password{' '}
-            {errorPassword !== '' && (
-              <span className="text-red-600">{errorPassword}</span>
-            )}
           </label>
           <input
             type="password"

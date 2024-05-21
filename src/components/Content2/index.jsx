@@ -1,8 +1,12 @@
-import { useState, useEffect } from 'react';
+import { Context } from '../../Context';
+import { useContext, useState, useEffect } from 'react';
 import { API_KEY } from '../../API_KEYS';
 import roverPicture from '../../assets/rover-robot.svg';
 
 const Content2 = () => {
+  const { isLogged, toggleLogin } = useContext(Context);
+  const { userId, setUser } = useContext(Context);
+
   const [datas, setDatas] = useState([]);
   const [description, setDescription] = useState({});
   const [filteredDatas, setFilteredDatas] = useState([]);
