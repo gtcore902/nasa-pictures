@@ -54,7 +54,7 @@ const SignInForm = () => {
     <div>
       {isLogged && <Navigate to="/" replace={true} />}
       <h2 className="text-xl font-bold text-center text-blue-600 dark:text-white mt-8 mb-8 md:mb-16 mt-0 md:mt-8">
-        Create your account
+        Sign into your account
       </h2>
       <form
         onSubmit={(event) =>
