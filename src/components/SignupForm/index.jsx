@@ -8,6 +8,7 @@ import { handleChange, handleSubmit } from '../../HandleForms';
 
 const SignUpForm = () => {
   const { isLogged, toggleLogin } = useContext(Context);
+  const { userId, setUser } = useContext(Context);
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
@@ -32,6 +33,7 @@ const SignUpForm = () => {
         setErrorMessage('');
         toggleLogin();
         setInputs({});
+        setUser(userCredential.user.uid);
         console.log('User created successfully!', user.uid);
       })
       .catch((error) => {

@@ -8,6 +8,7 @@ import { useContext, useState, useEffect } from 'react';
 
 const Header = () => {
   const { isLogged, toggleLogin } = useContext(Context);
+  const { userId, setUser } = useContext(Context);
 
   // Firebase project configuration
   const firebaseConfig = {
@@ -25,6 +26,7 @@ const Header = () => {
     signOut(auth)
       .then(() => {
         toggleLogin();
+        setUser(null);
         console.log('Sign-out successful');
       })
       .catch((error) => {

@@ -8,6 +8,7 @@ import { handleChange, handleSubmit } from '../../HandleForms';
 
 const SignInForm = () => {
   const { isLogged, toggleLogin } = useContext(Context);
+  const { userId, setUser } = useContext(Context);
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
@@ -32,6 +33,7 @@ const SignInForm = () => {
         toggleLogin();
         setErrorMessage('');
         setInputs({});
+        setUser(userCredential.user.uid);
         console.log('Authentification OK!', user.uid);
       })
       .catch((error) => {
@@ -88,6 +90,7 @@ const SignInForm = () => {
 
   useEffect(() => {
     console.log(isLogged);
+    console.log(userId);
   }, []);
 
   return (
