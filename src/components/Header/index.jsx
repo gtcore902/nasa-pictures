@@ -45,7 +45,7 @@ const Header = () => {
         </h1>
         <div className="flex flex-row justify-center items-center gap-2 md:gap-x-[24px] mb-8 md:mb-0">
           <Link
-            to="/signup"
+            to="/"
             className="block px-5 py-2.5 text-blue-600 dark:text-blue-500"
           >
             <FontAwesomeIcon icon={faHouse} size="xl" />
