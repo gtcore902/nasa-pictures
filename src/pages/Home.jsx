@@ -3,14 +3,15 @@ import Content2 from '../components/Content2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
-import { useState } from 'react';
+// import styles from '../styles/Footer.module.css';
+import { useEffect, useState } from 'react';
 
 const Home = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
 
   // Top menu & up arrow handler
-  window.document.addEventListener('scroll', () => handleScroll());
-  const targetScroll = 500;
+  const targetScroll = 1100;
+
   const handleScroll = () => {
     if (window.scrollY > targetScroll) {
       setScrollPosition(window.scrollY);
@@ -18,6 +19,11 @@ const Home = () => {
       setScrollPosition(0);
     }
   };
+
+  useEffect(() => {
+    window.document.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div>
@@ -27,13 +33,14 @@ const Home = () => {
         icon={faArrowUp}
         className={
           scrollPosition > targetScroll
-            ? 'fixed bottom-4 right-4 z-40 text-gray-800 md:right-48 hover:cursor-pointer'
-            : 'none'
+            ? 'fixed bottom-4 right-4 z-40 text-white md:right-48 hover:cursor-pointer'
+            : 'none text-white'
         }
         onClick={() => window.scrollTo(0, 0)}
         size="2xl"
       />
       <Footer style="absolute bottom-0 left-0 right-0 bcc-footer p-8 border-t border-t-gray-700 text-center" />
+      {/* <Footer className={styles.footer} /> */}
     </div>
   );
 };
