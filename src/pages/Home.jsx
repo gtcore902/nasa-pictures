@@ -33,8 +33,8 @@ const Home = () => {
         icon={faArrowUp}
         className={
           scrollPosition > targetScroll
-            ? 'fixed bottom-4 right-4 z-40 text-white md:right-48 hover:cursor-pointer'
-            : 'none text-white'
+            ? 'fixed bottom-4 right-4 z-40 text-black-600 md:right-48 hover:cursor-pointer'
+            : 'hidden text-black-600'
         }
         onClick={() => window.scrollTo(0, 0)}
         size="2xl"
