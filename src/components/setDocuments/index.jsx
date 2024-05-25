@@ -11,7 +11,9 @@ export const getFavourites = async (db, userId, setFavourites) => {
     // console.log(`${doc.id} => ${doc.data()}`);
     myArray.push({ ...doc.data(), id: doc.id }); // A comprendre ici
   });
-  setFavourites([...myArray]);
+  console.log(myArray);
+  setFavourites(myArray);
+  // return myArray;
 };
 
 // Add favourite to collection

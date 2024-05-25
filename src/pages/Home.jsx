@@ -1,13 +1,19 @@
 import Header from '../components/Header';
 import Content2 from '../components/Content2';
+import { Context } from '../Context';
+import { initializeApp } from 'firebase/app';
+import { getFavourites } from '../components/setDocuments';
+import { getFirestore, serverTimestamp } from 'firebase/firestore';
+import config from '../firebase-config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 // import styles from '../styles/Footer.module.css';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 const Home = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
+  const { favourites, addFavourites } = useContext(Context);
 
   // Top menu & up arrow handler
   const targetScroll = 1100;

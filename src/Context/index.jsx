@@ -5,6 +5,7 @@ const Context = createContext();
 const Provider = ({ children }) => {
   const [isLogged, setIsLogged] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [favourites, setFavourites] = useState([]);
 
   const toggleLogin = () => {
     setIsLogged(!isLogged);
@@ -14,8 +15,21 @@ const Provider = ({ children }) => {
     setUserId(value);
   };
 
+  const addFavourite = (value) => {
+    setFavourites(...favourites, value);
+  };
+
   return (
-    <Context.Provider value={{ isLogged, toggleLogin, userId, setUser }}>
+    <Context.Provider
+      value={{
+        isLogged,
+        toggleLogin,
+        userId,
+        setUser,
+        favourites,
+        addFavourite,
+      }}
+    >
       {children}
     </Context.Provider>
   );

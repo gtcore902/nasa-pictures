@@ -2,11 +2,20 @@ import { Context } from '../../Context';
 import { useContext, useState, useEffect } from 'react';
 import { API_KEY } from '../../API_KEYS';
 import roverPicture from '../../assets/rover-robot.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeartCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
+import { initializeApp } from 'firebase/app';
+// import { collection, getDocs } from 'firebase/firestore';
+import { getFavourites, addFavourite } from '../setDocuments';
+import { getFirestore, serverTimestamp } from 'firebase/firestore';
+import config from '../../firebase-config';
 
 const Content2 = () => {
   const { isLogged, toggleLogin } = useContext(Context);
   const { userId, setUser } = useContext(Context);
-
+  const [favourites, setFavourites] = useState([]);
   const [datas, setDatas] = useState([]);
   const [description, setDescription] = useState({});
   const [filteredDatas, setFilteredDatas] = useState([]);
@@ -16,6 +25,19 @@ const Content2 = () => {
   const [picturesLastCol, setPicturesLastCol] = useState([]);
   const [listCam, setListCam] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Firebase
+  // Firebase project configuration
+  const firebaseConfig = {
+    apiKey: config.apiKey,
+    authDomain: config.authDomain,
+    projectId: config.projectId,
+    storageBucket: config.storageBucket,
+    messagingSenderId: config.messagingSenderId,
+    appId: config.appId,
+  };
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
   const rovers = {
     perseverance: {
@@ -84,6 +106,14 @@ const Content2 = () => {
     setListCam(['All'].concat(...camList));
   }, [datas]);
 
+  useEffect(() => {
+    isLogged && getFavourites(db, userId, setFavourites);
+  }, []);
+
+  // useEffect(() => {
+  //   isLogged && getFavourites(db, userId, setFavourites);
+  // }, [favourites]);
+
   const sortCam = (event) => {
     if (event.target.id === 'All') {
       setFilteredDatas(datas.filter((data) => data));
@@ -125,13 +155,40 @@ const Content2 = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-[24px] items-start md:text-left mx-2 my-8 md:mx-32 md:my-8">
           <div className="grid grid-cols-1 gap-2 md:gap-[24px]">
             {picturesFirstCol.map((picture, index) => (
-              <div key={index} className="">
+              <div key={index} className="relative">
                 <img
                   className="w-full opacity-0 animate-fadeIn"
                   key={index}
                   src={picture}
                   alt={picture}
                 />
+                {!isLogged && (
+                  <FontAwesomeIcon
+                    icon={faHeartCirclePlus}
+                    className="absolute top-5 right-5 text-white cursor-pointer"
+                    size="xl"
+                  />
+                )}
+                {isLogged &&
+                  (favourites.some((element) => element.img_src === picture) ? (
+                    <FontAwesomeIcon
+                      icon={faHeartSolid}
+                      className="absolute top-5 right-5 text-white cursor-pointer"
+                      size="xl"
+                      onClick={() =>
+                        addFavourite(db, userId, { img_src: picture })
+                      }
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faHeartRegular}
+                      className="absolute top-5 right-5 text-white cursor-pointer"
+                      size="xl"
+                      onClick={() =>
+                        addFavourite(db, userId, { img_src: picture })
+                      }
+                    />
+                  ))}{' '}
               </div>
             ))}
           </div>
