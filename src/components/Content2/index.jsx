@@ -1,5 +1,6 @@
 import { Context } from '../../Context';
 import { useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { API_KEY } from '../../API_KEYS';
 import roverPicture from '../../assets/rover-robot.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -25,6 +26,7 @@ const Content2 = () => {
   const [picturesLastCol, setPicturesLastCol] = useState([]);
   const [listCam, setListCam] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   // Firebase
   // Firebase project configuration
@@ -181,6 +183,7 @@ const Content2 = () => {
                     icon={faHeartCirclePlus}
                     className="absolute top-5 right-5 text-white cursor-pointer"
                     size="xl"
+                    onClick={() => navigate('/signin')}
                   />
                 )}
                 {isLogged &&
@@ -216,6 +219,7 @@ const Content2 = () => {
                     icon={faHeartCirclePlus}
                     className="absolute top-5 right-5 text-white cursor-pointer"
                     size="xl"
+                    onClick={() => navigate('/signin')}
                   />
                 )}
                 {isLogged &&
@@ -251,6 +255,7 @@ const Content2 = () => {
                     icon={faHeartCirclePlus}
                     className="absolute top-5 right-5 text-white cursor-pointer"
                     size="xl"
+                    onClick={() => navigate('/signin')}
                   />
                 )}
                 {isLogged &&
