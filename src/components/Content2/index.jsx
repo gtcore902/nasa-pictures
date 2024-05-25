@@ -8,7 +8,7 @@ import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { initializeApp } from 'firebase/app';
 // import { collection, getDocs } from 'firebase/firestore';
-import { getFavourites, addFavourite } from '../setDocuments';
+import { getFavourites, addFavourite, removeFavourite } from '../setDocuments';
 import { getFirestore, serverTimestamp } from 'firebase/firestore';
 import config from '../../firebase-config';
 
@@ -108,11 +108,25 @@ const Content2 = () => {
 
   useEffect(() => {
     isLogged && getFavourites(db, userId, setFavourites);
-  }, []);
+  }, [isLogged, db, userId]);
 
-  // useEffect(() => {
-  //   isLogged && getFavourites(db, userId, setFavourites);
-  // }, [favourites]);
+  const handleAddFavourites = async (picture) => {
+    await addFavourite(db, userId, { img_src: picture });
+    const updatedFavourites = [...favourites, { img_src: picture }];
+    setFavourites(updatedFavourites);
+    getFavourites(db, userId, setFavourites);
+  };
+
+  const handleRemoveFavourites = async (picture) => {
+    const ref = favourites.filter((favourite) => favourite.img_src === picture);
+    console.log(ref[0].id);
+    await removeFavourite(db, userId, ref[0].id);
+    const updatedFavourites = favourites.filter(
+      (element) => element.img_src !== picture
+    );
+    setFavourites(updatedFavourites);
+    getFavourites(db, userId, setFavourites);
+  };
 
   const sortCam = (event) => {
     if (event.target.id === 'All') {
@@ -175,18 +189,14 @@ const Content2 = () => {
                       icon={faHeartSolid}
                       className="absolute top-5 right-5 text-white cursor-pointer"
                       size="xl"
-                      onClick={() =>
-                        addFavourite(db, userId, { img_src: picture })
-                      }
+                      onClick={() => handleRemoveFavourites(picture)}
                     />
                   ) : (
                     <FontAwesomeIcon
                       icon={faHeartRegular}
                       className="absolute top-5 right-5 text-white cursor-pointer"
                       size="xl"
-                      onClick={() =>
-                        addFavourite(db, userId, { img_src: picture })
-                      }
+                      onClick={() => handleAddFavourites(picture)}
                     />
                   ))}{' '}
               </div>
@@ -194,25 +204,71 @@ const Content2 = () => {
           </div>
           <div className="grid grid-cols-1 gap-2 md:gap-[24px]">
             {picturesSecondCol.map((picture, index) => (
-              <div key={index} className="">
+              <div key={index} className="relative">
                 <img
                   className="w-full opacity-0 animate-fadeIn"
                   key={index}
                   src={picture}
-                  alt=""
+                  alt={picture}
                 />
+                {!isLogged && (
+                  <FontAwesomeIcon
+                    icon={faHeartCirclePlus}
+                    className="absolute top-5 right-5 text-white cursor-pointer"
+                    size="xl"
+                  />
+                )}
+                {isLogged &&
+                  (favourites.some((element) => element.img_src === picture) ? (
+                    <FontAwesomeIcon
+                      icon={faHeartSolid}
+                      className="absolute top-5 right-5 text-white cursor-pointer"
+                      size="xl"
+                      onClick={() => handleRemoveFavourites(picture)}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faHeartRegular}
+                      className="absolute top-5 right-5 text-white cursor-pointer"
+                      size="xl"
+                      onClick={() => handleAddFavourites(picture)}
+                    />
+                  ))}{' '}
               </div>
             ))}
           </div>
           <div className="grid grid-cols-1 gap-2 md:gap-[24px]">
             {picturesLastCol.map((picture, index) => (
-              <div key={index} className="">
+              <div key={index} className="relative">
                 <img
                   className="w-full opacity-0 animate-fadeIn"
                   key={index}
                   src={picture}
-                  alt=""
+                  alt={picture}
                 />
+                {!isLogged && (
+                  <FontAwesomeIcon
+                    icon={faHeartCirclePlus}
+                    className="absolute top-5 right-5 text-white cursor-pointer"
+                    size="xl"
+                  />
+                )}
+                {isLogged &&
+                  (favourites.some((element) => element.img_src === picture) ? (
+                    <FontAwesomeIcon
+                      icon={faHeartSolid}
+                      className="absolute top-5 right-5 text-white cursor-pointer"
+                      size="xl"
+                      onClick={() => handleRemoveFavourites(picture)}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faHeartRegular}
+                      className="absolute top-5 right-5 text-white cursor-pointer"
+                      size="xl"
+                      onClick={() => handleAddFavourites(picture)}
+                    />
+                  ))}{' '}
               </div>
             ))}
           </div>
