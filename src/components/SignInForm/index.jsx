@@ -1,5 +1,5 @@
 import { Context } from '../../Context';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
@@ -57,6 +57,13 @@ const SignInForm = () => {
       <h2 className="text-xl font-bold text-center text-blue-600 dark:text-white mt-8 mb-8 md:mb-16 mt-0 md:mt-8">
         Sign into your account
       </h2>
+      <h3 className="text-md font-bold text-center text-gray-800 dark:text-white mt-8 mb-4 md:mb-8 mt-0 md:mt-8">
+        Don't have an account?{' '}
+        <Link to="/signup" className="underline">
+          Signup
+        </Link>
+      </h3>
+
       <form
         onSubmit={(event) =>
           handleSubmit(
