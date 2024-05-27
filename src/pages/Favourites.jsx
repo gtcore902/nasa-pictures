@@ -21,7 +21,6 @@ const Home = () => {
   const { userId, setUser } = useContext(Context);
   const [favourites, setFavourites] = useState([]);
 
-  // Firebase
   // Firebase project configuration
   const firebaseConfig = {
     apiKey: config.apiKey,
@@ -34,7 +33,12 @@ const Home = () => {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
+  /**
+   * Remove favourite to collection
+   * @param {string} picture
+   */
   const handleRemoveFavourites = async (picture) => {
+    // Add confirmation ?
     const ref = favourites.filter((favourite) => favourite.img_src === picture);
     await removeFavourite(db, userId, ref[0].id);
     const updatedFavourites = favourites.filter(
