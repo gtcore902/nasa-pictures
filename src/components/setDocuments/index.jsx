@@ -7,7 +7,12 @@ import {
   deleteDoc,
 } from 'firebase/firestore';
 
-// Get a list of favourites from database
+/**
+ * Get a list of favourites from database
+ * @param {object} db
+ * @param {string} userId
+ * @param {function} setFavourites
+ */
 export const getFavourites = async (db, userId, setFavourites) => {
   const myArray = [];
   const picturesCol = collection(db, userId);
@@ -22,7 +27,30 @@ export const getFavourites = async (db, userId, setFavourites) => {
   // return myArray;
 };
 
-// Add favourite to collection
+/**
+ * Add favourite to collection
+ * @param {string} picture
+ * @param {object} db
+ * @param {string} userId
+ * @param {object} favourites
+ * @param {function} setFavourites
+ * @param {function} notify
+ */
+export const handleAddFavourites = async (
+  picture,
+  db,
+  userId,
+  favourites,
+  setFavourites,
+  notify
+) => {
+  await addFavourite(db, userId, { img_src: picture });
+  const updatedFavourites = [...favourites, { img_src: picture }];
+  setFavourites(updatedFavourites);
+  getFavourites(db, userId, setFavourites);
+  notify('Picture added to your favourites!');
+};
+
 export const addFavourite = async (db, userId, img_scr) => {
   try {
     const docRef = await addDoc(collection(db, userId), img_scr);
@@ -32,7 +60,29 @@ export const addFavourite = async (db, userId, img_scr) => {
   }
 };
 
-// Remove favourite to collection
+/**
+ * Remove favourite to collection
+ * @param {string} picture
+ */
+export const handleRemoveFavourites = async (
+  picture,
+  db,
+  userId,
+  favourites,
+  setFavourites,
+  notify
+) => {
+  const ref = favourites.filter((favourite) => favourite.img_src === picture);
+  console.log(ref[0].id);
+  await removeFavourite(db, userId, ref[0].id);
+  const updatedFavourites = favourites.filter(
+    (element) => element.img_src !== picture
+  );
+  setFavourites(updatedFavourites);
+  getFavourites(db, userId, setFavourites);
+  notify('Picture removed from your favourites!');
+};
+
 export const removeFavourite = async (db, userId, img_scr) => {
   try {
     const docRef = doc(db, userId, img_scr);

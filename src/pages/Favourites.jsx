@@ -5,16 +5,16 @@ import { initializeApp } from 'firebase/app';
 // import { collection, getDocs } from 'firebase/firestore';
 import {
   getFavourites,
-  addFavourite,
-  removeFavourite,
+  handleRemoveFavourites,
 } from '../components/setDocuments';
-import { getFirestore, serverTimestamp } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 import config from '../firebase-config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import toast, { Toaster } from 'react-hot-toast';
+import { notify } from '../components/Notifications';
+import { Toaster } from 'react-hot-toast';
 
 const Home = () => {
   const { isLogged, toggleLogin } = useContext(Context);
@@ -32,26 +32,6 @@ const Home = () => {
   };
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-
-  /**
-   * Remove favourite to collection
-   * @param {string} picture
-   */
-  const handleRemoveFavourites = async (picture) => {
-    // Add confirmation ?
-    const ref = favourites.filter((favourite) => favourite.img_src === picture);
-    await removeFavourite(db, userId, ref[0].id);
-    const updatedFavourites = favourites.filter(
-      (element) => element.img_src !== picture
-    );
-    setFavourites(updatedFavourites);
-    getFavourites(db, userId, setFavourites);
-    notify('Picture removed from your favourites!');
-  };
-
-  const notify = (text) => {
-    toast.success(text);
-  };
 
   useEffect(() => {
     if (isLogged) {
@@ -91,7 +71,16 @@ const Home = () => {
               icon={faTrash}
               className="absolute top-5 right-5 text-white cursor-pointer"
               size="xl"
-              onClick={() => handleRemoveFavourites(favourite.img_src)}
+              onClick={() =>
+                handleRemoveFavourites(
+                  favourite.img_src,
+                  db,
+                  userId,
+                  favourites,
+                  setFavourites,
+                  notify
+                )
+              }
             />
           </div>
         ))}

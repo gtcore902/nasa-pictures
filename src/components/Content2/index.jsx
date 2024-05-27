@@ -1,18 +1,27 @@
 import { Context } from '../../Context';
 import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { API_KEY } from '../../API_KEYS';
+// import { API_KEY } from '../../API_KEYS';
+import { rovers } from '../Rovers';
 import roverPicture from '../../assets/rover-robot.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeartCirclePlus } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
+import {
+  faHeartCirclePlus,
+  faHeart as faHeartSolid,
+} from '@fortawesome/free-solid-svg-icons';
+// import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { initializeApp } from 'firebase/app';
 // import { collection, getDocs } from 'firebase/firestore';
-import { getFavourites, addFavourite, removeFavourite } from '../setDocuments';
+import {
+  getFavourites,
+  handleAddFavourites,
+  handleRemoveFavourites,
+} from '../setDocuments';
+import { notify } from '../Notifications';
 import { getFirestore, serverTimestamp } from 'firebase/firestore';
 import config from '../../firebase-config';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 const Content2 = () => {
   const { isLogged, toggleLogin } = useContext(Context);
@@ -42,13 +51,13 @@ const Content2 = () => {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  const rovers = {
-    perseverance: {
-      name: 'perseverance',
-      url: `https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/latest_photos?&api_key=${API_KEY}`,
-    },
-    curiosity: 'curiosity',
-  };
+  // const rovers = {
+  //   perseverance: {
+  //     name: 'perseverance',
+  //     url: `https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/latest_photos?&api_key=${API_KEY}`,
+  //   },
+  //   curiosity: 'curiosity',
+  // };
 
   const fetchDatas = async (url) => {
     try {
@@ -113,25 +122,25 @@ const Content2 = () => {
     isLogged && getFavourites(db, userId, setFavourites);
   }, [isLogged, db, userId]);
 
-  const handleAddFavourites = async (picture) => {
-    await addFavourite(db, userId, { img_src: picture });
-    const updatedFavourites = [...favourites, { img_src: picture }];
-    setFavourites(updatedFavourites);
-    getFavourites(db, userId, setFavourites);
-    notify('Picture added to your favourites!');
-  };
+  // const handleAddFavourites = async (picture) => {
+  //   await addFavourite(db, userId, { img_src: picture });
+  //   const updatedFavourites = [...favourites, { img_src: picture }];
+  //   setFavourites(updatedFavourites);
+  //   getFavourites(db, userId, setFavourites);
+  //   notify('Picture added to your favourites!');
+  // };
 
-  const handleRemoveFavourites = async (picture) => {
-    const ref = favourites.filter((favourite) => favourite.img_src === picture);
-    console.log(ref[0].id);
-    await removeFavourite(db, userId, ref[0].id);
-    const updatedFavourites = favourites.filter(
-      (element) => element.img_src !== picture
-    );
-    setFavourites(updatedFavourites);
-    getFavourites(db, userId, setFavourites);
-    notify('Picture removed from your favourites!');
-  };
+  // const handleRemoveFavourites = async (picture) => {
+  //   const ref = favourites.filter((favourite) => favourite.img_src === picture);
+  //   console.log(ref[0].id);
+  //   await removeFavourite(db, userId, ref[0].id);
+  //   const updatedFavourites = favourites.filter(
+  //     (element) => element.img_src !== picture
+  //   );
+  //   setFavourites(updatedFavourites);
+  //   getFavourites(db, userId, setFavourites);
+  //   notify('Picture removed from your favourites!');
+  // };
 
   const sortCam = (event) => {
     if (event.target.id === 'All') {
@@ -143,9 +152,9 @@ const Content2 = () => {
     }
   };
 
-  const notify = (text) => {
-    toast.success(text);
-  };
+  // const notify = (text) => {
+  //   toast.success(text);
+  // };
 
   return (
     <div className="max-w-[1920px] mx-auto pb-48">
@@ -200,14 +209,32 @@ const Content2 = () => {
                       icon={faHeartSolid}
                       className="absolute top-5 right-5 text-white cursor-pointer"
                       size="xl"
-                      onClick={() => handleRemoveFavourites(picture)}
+                      onClick={() =>
+                        handleRemoveFavourites(
+                          picture,
+                          db,
+                          userId,
+                          favourites,
+                          setFavourites,
+                          notify
+                        )
+                      }
                     />
                   ) : (
                     <FontAwesomeIcon
                       icon={faHeartRegular}
                       className="absolute top-5 right-5 text-white cursor-pointer"
                       size="xl"
-                      onClick={() => handleAddFavourites(picture)}
+                      onClick={() =>
+                        handleAddFavourites(
+                          picture,
+                          db,
+                          userId,
+                          favourites,
+                          setFavourites,
+                          notify
+                        )
+                      }
                     />
                   ))}{' '}
               </div>
@@ -236,14 +263,32 @@ const Content2 = () => {
                       icon={faHeartSolid}
                       className="absolute top-5 right-5 text-white cursor-pointer"
                       size="xl"
-                      onClick={() => handleRemoveFavourites(picture)}
+                      onClick={() =>
+                        handleRemoveFavourites(
+                          picture,
+                          db,
+                          userId,
+                          favourites,
+                          setFavourites,
+                          notify
+                        )
+                      }
                     />
                   ) : (
                     <FontAwesomeIcon
                       icon={faHeartRegular}
                       className="absolute top-5 right-5 text-white cursor-pointer"
                       size="xl"
-                      onClick={() => handleAddFavourites(picture)}
+                      onClick={() =>
+                        handleAddFavourites(
+                          picture,
+                          db,
+                          userId,
+                          favourites,
+                          setFavourites,
+                          notify
+                        )
+                      }
                     />
                   ))}{' '}
               </div>
@@ -272,14 +317,32 @@ const Content2 = () => {
                       icon={faHeartSolid}
                       className="absolute top-5 right-5 text-white cursor-pointer"
                       size="xl"
-                      onClick={() => handleRemoveFavourites(picture)}
+                      onClick={() =>
+                        handleRemoveFavourites(
+                          picture,
+                          db,
+                          userId,
+                          favourites,
+                          setFavourites,
+                          notify
+                        )
+                      }
                     />
                   ) : (
                     <FontAwesomeIcon
                       icon={faHeartRegular}
                       className="absolute top-5 right-5 text-white cursor-pointer"
                       size="xl"
-                      onClick={() => handleAddFavourites(picture)}
+                      onClick={() =>
+                        handleAddFavourites(
+                          picture,
+                          db,
+                          userId,
+                          favourites,
+                          setFavourites,
+                          notify
+                        )
+                      }
                     />
                   ))}{' '}
               </div>
