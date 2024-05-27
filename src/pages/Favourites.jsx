@@ -2,7 +2,6 @@ import { Context } from '../Context';
 import { Navigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
-// import { collection, getDocs } from 'firebase/firestore';
 import {
   getFavourites,
   handleRemoveFavourites,

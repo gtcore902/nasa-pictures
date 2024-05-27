@@ -24,11 +24,10 @@ export const getFavourites = async (db, userId, setFavourites) => {
   });
   console.log(myArray);
   setFavourites(myArray);
-  // return myArray;
 };
 
 /**
- * Add favourite to collection
+ * Handle add favourite to collection
  * @param {string} picture
  * @param {object} db
  * @param {string} userId
@@ -51,6 +50,12 @@ export const handleAddFavourites = async (
   notify('Picture added to your favourites!');
 };
 
+/**
+ * Add favourite to collection
+ * @param {object} db
+ * @param {string} userId
+ * @param {string} img_scr
+ */
 export const addFavourite = async (db, userId, img_scr) => {
   try {
     const docRef = await addDoc(collection(db, userId), img_scr);
@@ -61,8 +66,13 @@ export const addFavourite = async (db, userId, img_scr) => {
 };
 
 /**
- * Remove favourite to collection
+ * Handle remove favourite to collection
  * @param {string} picture
+ * @param {object} db
+ * @param {string} userId
+ * @param {object} favourites
+ * @param {function} setFavourites
+ * @param {function} notify
  */
 export const handleRemoveFavourites = async (
   picture,
@@ -83,6 +93,12 @@ export const handleRemoveFavourites = async (
   notify('Picture removed from your favourites!');
 };
 
+/**
+ * Remove favourite to collection
+ * @param {object} db
+ * @param {string} userId
+ * @param {string} img_scr
+ */
 export const removeFavourite = async (db, userId, img_scr) => {
   try {
     const docRef = doc(db, userId, img_scr);

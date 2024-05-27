@@ -17,7 +17,6 @@ const Home = () => {
 
   // Top menu & up arrow handler
   const targetScroll = 1100;
-
   const handleScroll = () => {
     if (window.scrollY > targetScroll) {
       setScrollPosition(window.scrollY);

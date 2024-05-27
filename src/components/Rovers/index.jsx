@@ -1,5 +1,7 @@
+// Import the API key from a separate file for security and modularity reasons.
 import { API_KEY } from '../../API_KEYS';
 
+// Define information about the Mars rovers
 export const rovers = {
   perseverance: {
     name: 'perseverance',

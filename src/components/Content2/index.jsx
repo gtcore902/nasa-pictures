@@ -1,7 +1,6 @@
 import { Context } from '../../Context';
 import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { API_KEY } from '../../API_KEYS';
 import { rovers } from '../Rovers';
 import roverPicture from '../../assets/rover-robot.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,10 +8,8 @@ import {
   faHeartCirclePlus,
   faHeart as faHeartSolid,
 } from '@fortawesome/free-solid-svg-icons';
-// import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { initializeApp } from 'firebase/app';
-// import { collection, getDocs } from 'firebase/firestore';
 import {
   getFavourites,
   handleAddFavourites,
@@ -30,7 +27,6 @@ const Content2 = () => {
   const [datas, setDatas] = useState([]);
   const [description, setDescription] = useState({});
   const [filteredDatas, setFilteredDatas] = useState([]);
-  // const [pictures, setPictures] = useState([]);
   const [picturesFirstCol, setPicturesFirstColumn] = useState([]);
   const [picturesSecondCol, setPicturesSecondColumn] = useState([]);
   const [picturesLastCol, setPicturesLastCol] = useState([]);
@@ -38,7 +34,6 @@ const Content2 = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Firebase
   // Firebase project configuration
   const firebaseConfig = {
     apiKey: config.apiKey,
@@ -50,14 +45,6 @@ const Content2 = () => {
   };
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-
-  // const rovers = {
-  //   perseverance: {
-  //     name: 'perseverance',
-  //     url: `https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/latest_photos?&api_key=${API_KEY}`,
-  //   },
-  //   curiosity: 'curiosity',
-  // };
 
   const fetchDatas = async (url) => {
     try {
@@ -88,13 +75,13 @@ const Content2 = () => {
     setFilteredDatas(datas);
     setDescription(datas[0]);
   }, [datas]);
+
   /**
    * Dispatch all images for all columns of grid
    */
   useEffect(() => {
     const picturesArray = [];
     filteredDatas.map((data) => picturesArray.push(data.img_src));
-    // setPictures(picturesArray);
     setPicturesFirstColumn(
       picturesArray.slice(0, Math.ceil(picturesArray.length / 3))
     );
@@ -122,26 +109,6 @@ const Content2 = () => {
     isLogged && getFavourites(db, userId, setFavourites);
   }, [isLogged, db, userId]);
 
-  // const handleAddFavourites = async (picture) => {
-  //   await addFavourite(db, userId, { img_src: picture });
-  //   const updatedFavourites = [...favourites, { img_src: picture }];
-  //   setFavourites(updatedFavourites);
-  //   getFavourites(db, userId, setFavourites);
-  //   notify('Picture added to your favourites!');
-  // };
-
-  // const handleRemoveFavourites = async (picture) => {
-  //   const ref = favourites.filter((favourite) => favourite.img_src === picture);
-  //   console.log(ref[0].id);
-  //   await removeFavourite(db, userId, ref[0].id);
-  //   const updatedFavourites = favourites.filter(
-  //     (element) => element.img_src !== picture
-  //   );
-  //   setFavourites(updatedFavourites);
-  //   getFavourites(db, userId, setFavourites);
-  //   notify('Picture removed from your favourites!');
-  // };
-
   const sortCam = (event) => {
     if (event.target.id === 'All') {
       setFilteredDatas(datas.filter((data) => data));
@@ -151,10 +118,6 @@ const Content2 = () => {
       );
     }
   };
-
-  // const notify = (text) => {
-  //   toast.success(text);
-  // };
 
   return (
     <div className="max-w-[1920px] mx-auto pb-48">
