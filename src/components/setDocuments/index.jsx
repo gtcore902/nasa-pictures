@@ -41,10 +41,17 @@ export const handleAddFavourites = async (
   userId,
   favourites,
   setFavourites,
-  notify
+  notify,
+  timestamp
 ) => {
-  await addFavourite(db, userId, { img_src: picture });
-  const updatedFavourites = [...favourites, { img_src: picture }];
+  await addFavourite(db, userId, {
+    img_src: picture,
+    timestamp: timestamp,
+  });
+  const updatedFavourites = [
+    ...favourites,
+    { img_src: picture, timestamp: timestamp },
+  ];
   setFavourites(updatedFavourites);
   getFavourites(db, userId, setFavourites);
   notify('Picture added to your favourites!');

@@ -195,7 +195,8 @@ const Content2 = () => {
                           userId,
                           favourites,
                           setFavourites,
-                          notify
+                          notify,
+                          serverTimestamp()
                         )
                       }
                     />
@@ -249,7 +250,8 @@ const Content2 = () => {
                           userId,
                           favourites,
                           setFavourites,
-                          notify
+                          notify,
+                          serverTimestamp()
                         )
                       }
                     />
@@ -303,7 +305,8 @@ const Content2 = () => {
                           userId,
                           favourites,
                           setFavourites,
-                          notify
+                          notify,
+                          serverTimestamp()
                         )
                       }
                     />
