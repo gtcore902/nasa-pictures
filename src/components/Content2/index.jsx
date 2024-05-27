@@ -12,6 +12,7 @@ import { initializeApp } from 'firebase/app';
 import { getFavourites, addFavourite, removeFavourite } from '../setDocuments';
 import { getFirestore, serverTimestamp } from 'firebase/firestore';
 import config from '../../firebase-config';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Content2 = () => {
   const { isLogged, toggleLogin } = useContext(Context);
@@ -117,6 +118,7 @@ const Content2 = () => {
     const updatedFavourites = [...favourites, { img_src: picture }];
     setFavourites(updatedFavourites);
     getFavourites(db, userId, setFavourites);
+    notify('Picture added to your favourites!');
   };
 
   const handleRemoveFavourites = async (picture) => {
@@ -128,6 +130,7 @@ const Content2 = () => {
     );
     setFavourites(updatedFavourites);
     getFavourites(db, userId, setFavourites);
+    notify('Picture removed from your favourites!');
   };
 
   const sortCam = (event) => {
@@ -140,8 +143,13 @@ const Content2 = () => {
     }
   };
 
+  const notify = (text) => {
+    toast.success(text);
+  };
+
   return (
     <div className="max-w-[1920px] mx-auto pb-48">
+      <Toaster />
       <h3 className="text-lg text-center md:text-left text-gray-800 dark:text-white mx-2 my-8 md:mx-32">
         The {description?.rover?.name} rover, launched on{' '}
         {description?.rover?.launch_date}, landed on Mars on{' '}
