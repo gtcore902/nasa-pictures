@@ -79,10 +79,7 @@ const Home = () => {
       <h2 className="text-xl font-bold text-center text-blue-600 dark:text-white mt-8 mb-8 md:mb-16 mt-0 md:mt-8">
         Your favourites
       </h2>
-      <p className="text-center">
-        Page under development. Your favorites will appear here!
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-[24px] items-start md:text-left mx-2 my-8 md:mx-32 md:my-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-[24px] items-start md:text-left mx-2 mt-8 pb-48 md:mx-32 md:mt-8">
         <Grid
           collection={picturesFirstCol}
           isLogged={isLogged}
