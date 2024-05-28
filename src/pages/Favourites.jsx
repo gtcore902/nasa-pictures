@@ -111,7 +111,7 @@ const Home = () => {
           notify={notify}
         />
       </div>
-      <Footer style="absolute left-0 right-0 bcc-footer p-8 border-t border-t-gray-700 text-center" />
+      <Footer style="absolute bottom-0 left-0 right-0 bcc-footer p-8 border-t border-t-gray-700 text-center" />
     </div>
   );
 };
