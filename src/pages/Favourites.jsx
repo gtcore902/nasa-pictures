@@ -10,6 +10,7 @@ import { getFirestore } from 'firebase/firestore';
 import config from '../firebase-config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import Grid from '../components/Grid';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { notify } from '../components/Notifications';
@@ -19,6 +20,10 @@ const Home = () => {
   const { isLogged, toggleLogin } = useContext(Context);
   const { userId, setUser } = useContext(Context);
   const [favourites, setFavourites] = useState([]);
+  const [filteredDatas, setFilteredDatas] = useState([]);
+  const [picturesFirstCol, setPicturesFirstColumn] = useState([]);
+  const [picturesSecondCol, setPicturesSecondColumn] = useState([]);
+  const [picturesLastCol, setPicturesLastCol] = useState([]);
 
   // Firebase project configuration
   const firebaseConfig = {
@@ -45,6 +50,27 @@ const Home = () => {
     }
   }, [favourites, isLogged]);
 
+  useEffect(() => {
+    setFilteredDatas(favourites);
+  }, [favourites]);
+
+  useEffect(() => {
+    const picturesArray = [];
+    filteredDatas.map((data) => picturesArray.push(data.img_src));
+    setPicturesFirstColumn(
+      picturesArray.slice(0, Math.ceil(picturesArray.length / 3))
+    );
+    setPicturesSecondColumn(
+      picturesArray.slice(
+        Math.ceil(picturesArray.length / 3),
+        Math.ceil(picturesArray.length / 3) * 2
+      )
+    );
+    setPicturesLastCol(
+      picturesArray.slice(Math.ceil(picturesArray.length / 3) * 2)
+    );
+  }, [filteredDatas]);
+
   return (
     <div>
       <Toaster />
@@ -53,38 +79,39 @@ const Home = () => {
       <h2 className="text-xl font-bold text-center text-blue-600 dark:text-white mt-8 mb-8 md:mb-16 mt-0 md:mt-8">
         Your favourites
       </h2>
-
       <p className="text-center">
         Page under development. Your favorites will appear here!
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-[24px] items-start md:text-left mx-2 my-8 md:mx-32 md:my-8">
-        {favourites.map((favourite, index) => (
-          <div className="relative" key={index}>
-            <img
-              className="w-full opacity-0 animate-fadeIn"
-              key={index}
-              src={favourite.img_src}
-              alt={favourite}
-            />
-            <FontAwesomeIcon
-              icon={faTrash}
-              className="absolute top-5 right-5 text-white cursor-pointer"
-              size="xl"
-              onClick={() =>
-                handleRemoveFavourites(
-                  favourite.img_src,
-                  db,
-                  userId,
-                  favourites,
-                  setFavourites,
-                  notify
-                )
-              }
-            />
-          </div>
-        ))}
+        <Grid
+          collection={picturesFirstCol}
+          isLogged={isLogged}
+          favourites={favourites}
+          db={db}
+          userId={userId}
+          setFavourites={setFavourites}
+          notify={notify}
+        />
+        <Grid
+          collection={picturesSecondCol}
+          isLogged={isLogged}
+          favourites={favourites}
+          db={db}
+          userId={userId}
+          setFavourites={setFavourites}
+          notify={notify}
+        />
+        <Grid
+          collection={picturesLastCol}
+          isLogged={isLogged}
+          favourites={favourites}
+          db={db}
+          userId={userId}
+          setFavourites={setFavourites}
+          notify={notify}
+        />
       </div>
-      <Footer style="absolute bottom-0 left-0 right-0  bcc-footer p-8 mt-32 border-t border-t-gray-700 text-center" />
+      <Footer style="absolute left-0 right-0 bcc-footer p-8 border-t border-t-gray-700 text-center" />
     </div>
   );
 };

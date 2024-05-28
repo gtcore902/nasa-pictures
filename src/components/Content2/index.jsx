@@ -1,23 +1,13 @@
 import { Context } from '../../Context';
 import { useContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { rovers } from '../Rovers';
 import roverPicture from '../../assets/rover-robot.svg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faHeartCirclePlus,
-  faHeart as faHeartSolid,
-} from '@fortawesome/free-solid-svg-icons';
-import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { initializeApp } from 'firebase/app';
-import {
-  getFavourites,
-  handleAddFavourites,
-  handleRemoveFavourites,
-} from '../setDocuments';
+import { getFavourites } from '../setDocuments';
 import { notify } from '../Notifications';
-import { getFirestore, serverTimestamp } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 import config from '../../firebase-config';
+import Grid from '../Grid';
 import { Toaster } from 'react-hot-toast';
 
 const Content2 = () => {
@@ -32,7 +22,6 @@ const Content2 = () => {
   const [picturesLastCol, setPicturesLastCol] = useState([]);
   const [listCam, setListCam] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
 
   // Firebase project configuration
   const firebaseConfig = {
@@ -46,6 +35,10 @@ const Content2 = () => {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
+  /**
+   * Fetch datas from API
+   * @param {string} url
+   */
   const fetchDatas = async (url) => {
     try {
       const response = await fetch(url);
@@ -149,171 +142,33 @@ const Content2 = () => {
         />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-[24px] items-start md:text-left mx-2 my-8 md:mx-32 md:my-8">
-          <div className="grid grid-cols-1 gap-2 md:gap-[24px]">
-            {picturesFirstCol.map((picture, index) => (
-              <div key={index} className="relative">
-                <img
-                  className="w-full opacity-0 animate-fadeIn"
-                  key={index}
-                  src={picture}
-                  alt={picture}
-                />
-                {!isLogged && (
-                  <FontAwesomeIcon
-                    icon={faHeartCirclePlus}
-                    className="absolute top-5 right-5 text-white cursor-pointer"
-                    size="xl"
-                    onClick={() => navigate('/signin')}
-                  />
-                )}
-                {isLogged &&
-                  (favourites.some((element) => element.img_src === picture) ? (
-                    <FontAwesomeIcon
-                      icon={faHeartSolid}
-                      className="absolute top-5 right-5 text-white cursor-pointer"
-                      size="xl"
-                      onClick={() =>
-                        handleRemoveFavourites(
-                          picture,
-                          db,
-                          userId,
-                          favourites,
-                          setFavourites,
-                          notify
-                        )
-                      }
-                    />
-                  ) : (
-                    <FontAwesomeIcon
-                      icon={faHeartRegular}
-                      className="absolute top-5 right-5 text-white cursor-pointer"
-                      size="xl"
-                      onClick={() =>
-                        handleAddFavourites(
-                          picture,
-                          db,
-                          userId,
-                          favourites,
-                          setFavourites,
-                          notify,
-                          serverTimestamp()
-                        )
-                      }
-                    />
-                  ))}{' '}
-              </div>
-            ))}
-          </div>
-          <div className="grid grid-cols-1 gap-2 md:gap-[24px]">
-            {picturesSecondCol.map((picture, index) => (
-              <div key={index} className="relative">
-                <img
-                  className="w-full opacity-0 animate-fadeIn"
-                  key={index}
-                  src={picture}
-                  alt={picture}
-                />
-                {!isLogged && (
-                  <FontAwesomeIcon
-                    icon={faHeartCirclePlus}
-                    className="absolute top-5 right-5 text-white cursor-pointer"
-                    size="xl"
-                    onClick={() => navigate('/signin')}
-                  />
-                )}
-                {isLogged &&
-                  (favourites.some((element) => element.img_src === picture) ? (
-                    <FontAwesomeIcon
-                      icon={faHeartSolid}
-                      className="absolute top-5 right-5 text-white cursor-pointer"
-                      size="xl"
-                      onClick={() =>
-                        handleRemoveFavourites(
-                          picture,
-                          db,
-                          userId,
-                          favourites,
-                          setFavourites,
-                          notify
-                        )
-                      }
-                    />
-                  ) : (
-                    <FontAwesomeIcon
-                      icon={faHeartRegular}
-                      className="absolute top-5 right-5 text-white cursor-pointer"
-                      size="xl"
-                      onClick={() =>
-                        handleAddFavourites(
-                          picture,
-                          db,
-                          userId,
-                          favourites,
-                          setFavourites,
-                          notify,
-                          serverTimestamp()
-                        )
-                      }
-                    />
-                  ))}{' '}
-              </div>
-            ))}
-          </div>
-          <div className="grid grid-cols-1 gap-2 md:gap-[24px]">
-            {picturesLastCol.map((picture, index) => (
-              <div key={index} className="relative">
-                <img
-                  className="w-full opacity-0 animate-fadeIn"
-                  key={index}
-                  src={picture}
-                  alt={picture}
-                />
-                {!isLogged && (
-                  <FontAwesomeIcon
-                    icon={faHeartCirclePlus}
-                    className="absolute top-5 right-5 text-white cursor-pointer"
-                    size="xl"
-                    onClick={() => navigate('/signin')}
-                  />
-                )}
-                {isLogged &&
-                  (favourites.some((element) => element.img_src === picture) ? (
-                    <FontAwesomeIcon
-                      icon={faHeartSolid}
-                      className="absolute top-5 right-5 text-white cursor-pointer"
-                      size="xl"
-                      onClick={() =>
-                        handleRemoveFavourites(
-                          picture,
-                          db,
-                          userId,
-                          favourites,
-                          setFavourites,
-                          notify
-                        )
-                      }
-                    />
-                  ) : (
-                    <FontAwesomeIcon
-                      icon={faHeartRegular}
-                      className="absolute top-5 right-5 text-white cursor-pointer"
-                      size="xl"
-                      onClick={() =>
-                        handleAddFavourites(
-                          picture,
-                          db,
-                          userId,
-                          favourites,
-                          setFavourites,
-                          notify,
-                          serverTimestamp()
-                        )
-                      }
-                    />
-                  ))}{' '}
-              </div>
-            ))}
-          </div>
+          <Grid
+            collection={picturesFirstCol}
+            isLogged={isLogged}
+            favourites={favourites}
+            db={db}
+            userId={userId}
+            setFavourites={setFavourites}
+            notify={notify}
+          />
+          <Grid
+            collection={picturesSecondCol}
+            isLogged={isLogged}
+            favourites={favourites}
+            db={db}
+            userId={userId}
+            setFavourites={setFavourites}
+            notify={notify}
+          />
+          <Grid
+            collection={picturesLastCol}
+            isLogged={isLogged}
+            favourites={favourites}
+            db={db}
+            userId={userId}
+            setFavourites={setFavourites}
+            notify={notify}
+          />
         </div>
       )}
     </div>
