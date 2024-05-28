@@ -79,34 +79,36 @@ const Home = () => {
       <h2 className="text-xl font-bold text-center text-blue-600 dark:text-white mt-8 mb-8 md:mb-16 mt-0 md:mt-8">
         Your favourites
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-[24px] items-start md:text-left mx-2 mt-8 pb-48 md:mx-32 md:mt-8">
-        <Grid
-          collection={picturesFirstCol}
-          isLogged={isLogged}
-          favourites={favourites}
-          db={db}
-          userId={userId}
-          setFavourites={setFavourites}
-          notify={notify}
-        />
-        <Grid
-          collection={picturesSecondCol}
-          isLogged={isLogged}
-          favourites={favourites}
-          db={db}
-          userId={userId}
-          setFavourites={setFavourites}
-          notify={notify}
-        />
-        <Grid
-          collection={picturesLastCol}
-          isLogged={isLogged}
-          favourites={favourites}
-          db={db}
-          userId={userId}
-          setFavourites={setFavourites}
-          notify={notify}
-        />
+      <div className="max-w-[1920px] mx-auto pb-48">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-[24px] items-start md:text-left mx-2 mt-8 pb-48 md:mx-32 md:mt-8">
+          <Grid
+            collection={picturesFirstCol}
+            isLogged={isLogged}
+            favourites={favourites}
+            db={db}
+            userId={userId}
+            setFavourites={setFavourites}
+            notify={notify}
+          />
+          <Grid
+            collection={picturesSecondCol}
+            isLogged={isLogged}
+            favourites={favourites}
+            db={db}
+            userId={userId}
+            setFavourites={setFavourites}
+            notify={notify}
+          />
+          <Grid
+            collection={picturesLastCol}
+            isLogged={isLogged}
+            favourites={favourites}
+            db={db}
+            userId={userId}
+            setFavourites={setFavourites}
+            notify={notify}
+          />
+        </div>
       </div>
       <Footer style="absolute bottom-0 left-0 right-0 bcc-footer p-8 border-t border-t-gray-700 text-center" />
     </div>
