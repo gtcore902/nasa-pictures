@@ -8,8 +8,10 @@ import {
 } from '../components/setDocuments';
 import { getFirestore } from 'firebase/firestore';
 import config from '../firebase-config';
+import emptyFolder from '../assets/empty-folder.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faFolderOpen } from '@fortawesome/free-regular-svg-icons';
 import Grid from '../components/Grid';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -80,35 +82,46 @@ const Home = () => {
         Your favourites
       </h2>
       <div className="max-w-[1920px] mx-auto pb-48">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-[24px] items-start md:text-left mx-2 mt-8 pb-48 md:mx-32 md:mt-8">
-          <Grid
-            collection={picturesFirstCol}
-            isLogged={isLogged}
-            favourites={favourites}
-            db={db}
-            userId={userId}
-            setFavourites={setFavourites}
-            notify={notify}
-          />
-          <Grid
-            collection={picturesSecondCol}
-            isLogged={isLogged}
-            favourites={favourites}
-            db={db}
-            userId={userId}
-            setFavourites={setFavourites}
-            notify={notify}
-          />
-          <Grid
-            collection={picturesLastCol}
-            isLogged={isLogged}
-            favourites={favourites}
-            db={db}
-            userId={userId}
-            setFavourites={setFavourites}
-            notify={notify}
-          />
-        </div>
+        {favourites.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-[24px] items-start md:text-left mx-2 mt-8 pb-48 md:mx-32 md:mt-8">
+            <Grid
+              collection={picturesFirstCol}
+              isLogged={isLogged}
+              favourites={favourites}
+              db={db}
+              userId={userId}
+              setFavourites={setFavourites}
+              notify={notify}
+            />
+            <Grid
+              collection={picturesSecondCol}
+              isLogged={isLogged}
+              favourites={favourites}
+              db={db}
+              userId={userId}
+              setFavourites={setFavourites}
+              notify={notify}
+            />
+            <Grid
+              collection={picturesLastCol}
+              isLogged={isLogged}
+              favourites={favourites}
+              db={db}
+              userId={userId}
+              setFavourites={setFavourites}
+              notify={notify}
+            />
+          </div>
+        ) : (
+          <div className="text-center">
+            {/* <FontAwesomeIcon icon={faFolderOpen} size="2xl" /> */}
+            <img
+              className="mx-auto w-1/3 pt-12 grayscale"
+              src={emptyFolder}
+              alt="dossier vide"
+            />
+          </div>
+        )}
       </div>
       <Footer style="absolute bottom-0 left-0 right-0 bcc-footer p-8 border-t border-t-gray-700 text-center" />
     </div>
