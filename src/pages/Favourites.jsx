@@ -116,7 +116,7 @@ const Home = () => {
           <div className="text-center">
             {/* <FontAwesomeIcon icon={faFolderOpen} size="2xl" /> */}
             <img
-              className="mx-auto w-1/3 pt-12 grayscale"
+              className="mx-auto w-3/4 md:w-1/3 pt-12 grayscale"
               src={emptyFolder}
               alt="dossier vide"
             />
