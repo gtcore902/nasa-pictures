@@ -2,7 +2,7 @@ import { Context } from '../../Context';
 import { Navigate, Link } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { handleChange, handleSubmit } from '../../HandleForms';
+import { handleChange, handleSubmitSignup } from '../../HandleForms';
 
 const SignUpForm = () => {
   const { isLogged, toggleLogin } = useContext(Context);
@@ -51,7 +51,7 @@ const SignUpForm = () => {
       </h3>
       <form
         onSubmit={(event) =>
-          handleSubmit(
+          handleSubmitSignup(
             event,
             setErrorEmail,
             setErrorPassword,

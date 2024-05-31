@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import config from '../../firebase-config';
-import { handleChange, handleSubmit } from '../../HandleForms';
+import { handleChange, handleSubmitSignin } from '../../HandleForms';
 
 const SignInForm = () => {
   const { isLogged, toggleLogin } = useContext(Context);
@@ -12,7 +12,6 @@ const SignInForm = () => {
   const [inputs, setInputs] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
-  const [errorPassword, setErrorPassword] = useState('');
 
   // Firebase project configuration
   const firebaseConfig = {
@@ -66,13 +65,7 @@ const SignInForm = () => {
 
       <form
         onSubmit={(event) =>
-          handleSubmit(
-            event,
-            setErrorEmail,
-            setErrorPassword,
-            inputs,
-            loginUser
-          )
+          handleSubmitSignin(event, setErrorEmail, inputs, loginUser)
         }
         className="max-w-sm mx-auto mb-8"
       >

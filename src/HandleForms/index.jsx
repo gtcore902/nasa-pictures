@@ -40,7 +40,7 @@ const validatePassword = (userPassword) => {
  * @param {object} inputs
  * @param {function} callback
  */
-export const handleSubmit = (
+export const handleSubmitSignup = (
   event,
   setErrorEmail,
   setErrorPassword,
@@ -56,4 +56,17 @@ export const handleSubmit = (
   );
   validateEmail(inputs.email) & validatePassword(inputs.password) &&
     callback(inputs.email, inputs.password);
+};
+
+/**
+ *
+ * @param {object} event
+ * @param {function} setErrorEmail
+ * @param {object} inputs
+ * @param {function} callback
+ */
+export const handleSubmitSignin = (event, setErrorEmail, inputs, callback) => {
+  event.preventDefault();
+  setErrorEmail(!validateEmail(inputs.email) ? 'Invalide email!' : '');
+  validateEmail(inputs.email) && callback(inputs.email, inputs.password);
 };
