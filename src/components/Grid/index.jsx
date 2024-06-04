@@ -51,6 +51,7 @@ const Grid = ({
                   size="xl"
                   onClick={() =>
                     handleRemoveFavourites(
+                      datas,
                       picture,
                       db,
                       userId,

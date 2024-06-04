@@ -62,7 +62,14 @@ const Home = () => {
 
   useEffect(() => {
     const picturesArray = [];
-    filteredDatas.map((data) => picturesArray.push(data.img_src));
+    filteredDatas.map((data) =>
+      picturesArray.push({
+        img_src: data.img_src,
+        earth_date: data.earth_date,
+        camera: data.camera.full_name,
+        // id: data.id,
+      })
+    );
     setPicturesFirstColumn(
       picturesArray.slice(0, Math.ceil(picturesArray.length / 3))
     );

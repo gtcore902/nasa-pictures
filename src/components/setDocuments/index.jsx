@@ -24,6 +24,7 @@ export const getFavourites = async (db, userId, setFavourites) => {
     myArray.push({
       ...doc.data(),
       id: doc.id,
+      img_scr: doc.data().img_scr,
       earth_date: doc.data().earth_date,
       camera: doc.data().camera,
       // id: doc.data().id,
@@ -52,6 +53,7 @@ export const handleAddFavourites = async (
   notify,
   timestamp
 ) => {
+  console.log(favourites);
   let dataset = Array.from(datas);
   const target = dataset.filter((data) => data.img_src === picture.img_src);
   console.log(target[0].img_src);
@@ -101,6 +103,7 @@ export const addFavourite = async (db, userId, img_scr) => {
  * @param {function} notify
  */
 export const handleRemoveFavourites = async (
+  datas,
   picture,
   db,
   userId,
@@ -122,7 +125,7 @@ export const handleRemoveFavourites = async (
   // console.log(favourites);
   console.log(ref);
   await removeFavourite(db, userId, ref[0].id);
-  const updatedFavourites = favourites.filter(
+  const updatedFavourites = dataset.filter(
     (favourite) => favourite[img_src] !== picture[img_src]
   );
   setFavourites(updatedFavourites);
