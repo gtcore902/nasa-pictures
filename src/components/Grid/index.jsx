@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   faHeartCirclePlus,
   faHeart as faHeartSolid,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { handleAddFavourites, handleRemoveFavourites } from '../setDocuments';
@@ -16,6 +17,7 @@ const Grid = ({
   userId,
   setFavourites,
   notify,
+  favouritesPage,
 }) => {
   const navigate = useNavigate();
 
@@ -39,21 +41,39 @@ const Grid = ({
           )}
           {isLogged &&
             (favourites.some((element) => element.img_src === picture) ? (
-              <FontAwesomeIcon
-                icon={faHeartSolid}
-                className="absolute top-5 right-5 text-white cursor-pointer"
-                size="xl"
-                onClick={() =>
-                  handleRemoveFavourites(
-                    picture,
-                    db,
-                    userId,
-                    favourites,
-                    setFavourites,
-                    notify
-                  )
-                }
-              />
+              !favouritesPage ? (
+                <FontAwesomeIcon
+                  icon={faHeartSolid}
+                  className="absolute top-5 right-5 text-white cursor-pointer"
+                  size="xl"
+                  onClick={() =>
+                    handleRemoveFavourites(
+                      picture,
+                      db,
+                      userId,
+                      favourites,
+                      setFavourites,
+                      notify
+                    )
+                  }
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  className="absolute top-5 right-5 text-white cursor-pointer"
+                  size="xl"
+                  onClick={() =>
+                    handleRemoveFavourites(
+                      picture,
+                      db,
+                      userId,
+                      favourites,
+                      setFavourites,
+                      notify
+                    )
+                  }
+                />
+              )
             ) : (
               <FontAwesomeIcon
                 icon={faHeartRegular}

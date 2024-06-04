@@ -150,6 +150,7 @@ const Content2 = () => {
             userId={userId}
             setFavourites={setFavourites}
             notify={notify}
+            favouritesPage={false}
           />
           <Grid
             collection={picturesSecondCol}
@@ -159,6 +160,7 @@ const Content2 = () => {
             userId={userId}
             setFavourites={setFavourites}
             notify={notify}
+            favouritesPage={false}
           />
           <Grid
             collection={picturesLastCol}
@@ -168,6 +170,7 @@ const Content2 = () => {
             userId={userId}
             setFavourites={setFavourites}
             notify={notify}
+            favouritesPage={false}
           />
         </div>
       )}

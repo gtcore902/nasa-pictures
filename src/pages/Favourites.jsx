@@ -16,6 +16,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { notify } from '../components/Notifications';
 import { Toaster } from 'react-hot-toast';
+import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
   const { isLogged, toggleLogin } = useContext(Context);
@@ -25,6 +26,7 @@ const Home = () => {
   const [picturesFirstCol, setPicturesFirstColumn] = useState([]);
   const [picturesSecondCol, setPicturesSecondColumn] = useState([]);
   const [picturesLastCol, setPicturesLastCol] = useState([]);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   // Firebase project configuration
   const firebaseConfig = {
@@ -39,6 +41,7 @@ const Home = () => {
   const db = getFirestore(app);
 
   const columns = [picturesFirstCol, picturesSecondCol, picturesLastCol];
+  const favouritesPage = true;
 
   useEffect(() => {
     if (isLogged) {
@@ -74,6 +77,21 @@ const Home = () => {
     );
   }, [filteredDatas]);
 
+  // Top menu & up arrow handler
+  const targetScroll = 1100;
+  const handleScroll = () => {
+    if (window.scrollY > targetScroll) {
+      setScrollPosition(window.scrollY);
+    } else {
+      setScrollPosition(0);
+    }
+  };
+
+  useEffect(() => {
+    window.document.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div>
       <Toaster />
@@ -94,6 +112,7 @@ const Home = () => {
                 userId={userId}
                 setFavourites={setFavourites}
                 notify={notify}
+                favouritesPage={true}
               />
             ))}
           </div>
@@ -107,6 +126,17 @@ const Home = () => {
           </div>
         )}
       </div>
+      <FontAwesomeIcon
+        icon={faArrowUp}
+        className={
+          scrollPosition > targetScroll
+            ? 'fixed bottom-4 right-4 z-40 text-black-600 md:right-48 hover:cursor-pointer'
+            : 'hidden text-black-600'
+        }
+        onClick={() => window.scrollTo(0, 0)}
+        size="2xl"
+      />
+
       <Footer style="absolute bottom-0 left-0 right-0 bcc-footer p-8 border-t border-t-gray-700 text-center" />
     </div>
   );
