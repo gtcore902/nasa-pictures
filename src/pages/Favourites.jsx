@@ -83,6 +83,21 @@ const Home = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // useEffect(() => {
+  //   filteredDatas.map((data) =>
+  //     console.log(data.timestamp.nanoseconds + data.timestamp.seconds)
+  //   );
+  //   const filteredTimeStamp = filteredDatas.sort(
+  //     (a, b) =>
+  //       a.timestamp.nanoseconds +
+  //       a.timestamp.seconds -
+  //       (b.timestamp.nanoseconds + b.timestamp.seconds),
+  //     0
+  //   );
+  //   console.log(filteredTimeStamp);
+  //   setFilteredDatas(filteredTimeStamp);
+  // }, [filteredDatas]);
+
   return (
     <div>
       <Toaster />
