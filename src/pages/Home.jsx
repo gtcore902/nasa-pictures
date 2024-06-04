@@ -10,24 +10,16 @@ import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 // import styles from '../styles/Footer.module.css';
 import { useContext, useEffect, useState } from 'react';
+import { targetScroll, handleScroll } from '../HandleScroll';
 
 const Home = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const { favourites, addFavourites } = useContext(Context);
 
-  // Top menu & up arrow handler
-  const targetScroll = 1100;
-  const handleScroll = () => {
-    if (window.scrollY > targetScroll) {
-      setScrollPosition(window.scrollY);
-    } else {
-      setScrollPosition(0);
-    }
-  };
-
   useEffect(() => {
-    window.document.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => handleScroll(setScrollPosition);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (

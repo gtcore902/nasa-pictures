@@ -17,6 +17,7 @@ import Footer from '../components/Footer';
 import { notify } from '../components/Notifications';
 import { Toaster } from 'react-hot-toast';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { targetScroll, handleScroll } from '../HandleScroll';
 
 const Home = () => {
   const { isLogged, toggleLogin } = useContext(Context);
@@ -41,7 +42,6 @@ const Home = () => {
   const db = getFirestore(app);
 
   const columns = [picturesFirstCol, picturesSecondCol, picturesLastCol];
-  const favouritesPage = true;
 
   useEffect(() => {
     if (isLogged) {
@@ -77,19 +77,10 @@ const Home = () => {
     );
   }, [filteredDatas]);
 
-  // Top menu & up arrow handler
-  const targetScroll = 1100;
-  const handleScroll = () => {
-    if (window.scrollY > targetScroll) {
-      setScrollPosition(window.scrollY);
-    } else {
-      setScrollPosition(0);
-    }
-  };
-
   useEffect(() => {
-    window.document.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => handleScroll(setScrollPosition);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
@@ -103,8 +94,9 @@ const Home = () => {
       <div className="max-w-[1920px] mx-auto pb-48">
         {favourites.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-[24px] items-start md:text-left mx-2 mt-8 pb-48 md:mx-32 md:mt-8">
-            {columns.map((column) => (
+            {columns.map((column, index) => (
               <Grid
+                key={index}
                 collection={column}
                 isLogged={isLogged}
                 favourites={favourites}
