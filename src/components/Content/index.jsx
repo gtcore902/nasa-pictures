@@ -74,7 +74,14 @@ const Content = () => {
    */
   useEffect(() => {
     const picturesArray = [];
-    filteredDatas.map((data) => picturesArray.push(data.img_src));
+    filteredDatas.map((data) =>
+      picturesArray.push({
+        img_src: data.img_src,
+        earth_date: data.earth_date,
+        camera: data.camera.full_name,
+        // id: data.id,
+      })
+    );
     setPicturesFirstColumn(
       picturesArray.slice(0, Math.ceil(picturesArray.length / 3))
     );
@@ -143,6 +150,7 @@ const Content = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-[24px] items-start md:text-left mx-2 my-8 md:mx-32 md:my-8">
           <Grid
+            datas={datas}
             collection={picturesFirstCol}
             isLogged={isLogged}
             favourites={favourites}
@@ -153,6 +161,7 @@ const Content = () => {
             favouritesPage={false}
           />
           <Grid
+            datas={datas}
             collection={picturesSecondCol}
             isLogged={isLogged}
             favourites={favourites}
@@ -163,6 +172,7 @@ const Content = () => {
             favouritesPage={false}
           />
           <Grid
+            datas={datas}
             collection={picturesLastCol}
             isLogged={isLogged}
             favourites={favourites}

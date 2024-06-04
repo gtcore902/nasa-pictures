@@ -1,4 +1,5 @@
 // Get a list of songs from database
+import { faV } from '@fortawesome/free-solid-svg-icons';
 import {
   collection,
   getDocs,
@@ -20,7 +21,13 @@ export const getFavourites = async (db, userId, setFavourites) => {
   const pictureSnapShot = await getDocs(picturesCol);
   pictureSnapShot.forEach((doc) => {
     // console.log(`${doc.id} => ${doc.data()}`);
-    myArray.push({ ...doc.data(), id: doc.id }); // A comprendre ici
+    myArray.push({
+      ...doc.data(),
+      id: doc.id,
+      earth_date: doc.data().earth_date,
+      camera: doc.data().camera,
+      // id: doc.data().id,
+    }); // A comprendre ici
   });
   console.log(myArray);
   setFavourites(myArray);
@@ -36,6 +43,7 @@ export const getFavourites = async (db, userId, setFavourites) => {
  * @param {function} notify
  */
 export const handleAddFavourites = async (
+  datas,
   picture,
   db,
   userId,
@@ -44,13 +52,24 @@ export const handleAddFavourites = async (
   notify,
   timestamp
 ) => {
+  let dataset = Array.from(datas);
+  const target = dataset.filter((data) => data.img_src === picture.img_src);
+  console.log(target[0].img_src);
   await addFavourite(db, userId, {
-    img_src: picture,
+    img_src: target[0].img_src,
+    earth_date: target[0].earth_date,
+    camera: target[0].camera.full_name,
+    // id: target[0].id,
     timestamp: timestamp,
   });
   const updatedFavourites = [
     ...favourites,
-    { img_src: picture, timestamp: timestamp },
+    {
+      img_src: target[0].img_src,
+      earth_date: target[0].earth_date,
+      camera: target[0].camera.full_name,
+      timestamp: timestamp,
+    },
   ];
   setFavourites(updatedFavourites);
   getFavourites(db, userId, setFavourites);
@@ -89,11 +108,22 @@ export const handleRemoveFavourites = async (
   setFavourites,
   notify
 ) => {
-  const ref = favourites.filter((favourite) => favourite.img_src === picture);
-  console.log(ref[0].id);
+  console.log(favourites);
+  console.log(picture);
+  const dataset = Array.from(favourites);
+  console.log(dataset);
+  const img_src = 'img_src';
+  dataset.map((element) => console.log(element[img_src]));
+  const ref = dataset.filter(
+    (favourite) => favourite[img_src] === picture[img_src]
+  );
+  // const ref = favourites[0].id;
+  // dataset.map((favourite) => console.log(favourite.img_scr));
+  // console.log(favourites);
+  console.log(ref);
   await removeFavourite(db, userId, ref[0].id);
   const updatedFavourites = favourites.filter(
-    (element) => element.img_src !== picture
+    (favourite) => favourite[img_src] !== picture[img_src]
   );
   setFavourites(updatedFavourites);
   getFavourites(db, userId, setFavourites);

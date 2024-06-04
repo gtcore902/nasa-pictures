@@ -10,6 +10,7 @@ import { handleAddFavourites, handleRemoveFavourites } from '../setDocuments';
 import { serverTimestamp } from 'firebase/firestore';
 
 const Grid = ({
+  datas,
   collection,
   isLogged,
   favourites,
@@ -28,8 +29,8 @@ const Grid = ({
           <img
             className="w-full opacity-0 animate-fadeIn"
             key={index}
-            src={picture}
-            alt={picture}
+            src={picture.img_src}
+            alt={picture.img_src}
           />
           {!isLogged && (
             <FontAwesomeIcon
@@ -40,7 +41,9 @@ const Grid = ({
             />
           )}
           {isLogged &&
-            (favourites.some((element) => element.img_src === picture) ? (
+            (favourites.some(
+              (element) => element.img_src === picture.img_src
+            ) ? (
               !favouritesPage ? (
                 <FontAwesomeIcon
                   icon={faHeartSolid}
@@ -64,6 +67,7 @@ const Grid = ({
                   size="xl"
                   onClick={() =>
                     handleRemoveFavourites(
+                      datas,
                       picture,
                       db,
                       userId,
@@ -81,6 +85,7 @@ const Grid = ({
                 size="xl"
                 onClick={() =>
                   handleAddFavourites(
+                    datas,
                     picture,
                     db,
                     userId,
