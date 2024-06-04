@@ -1,10 +1,10 @@
 import Header from '../components/Header';
-import Content2 from '../components/Content2';
+import Content from '../components/Content';
 import { Context } from '../Context';
-import { initializeApp } from 'firebase/app';
-import { getFavourites } from '../components/setDocuments';
-import { getFirestore, serverTimestamp } from 'firebase/firestore';
-import config from '../firebase-config';
+// import { initializeApp } from 'firebase/app';
+// import { getFavourites } from '../components/setDocuments';
+// import { getFirestore, serverTimestamp } from 'firebase/firestore';
+// import config from '../firebase-config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
@@ -25,7 +25,7 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <Content2 />
+      <Content />
       <FontAwesomeIcon
         icon={faArrowUp}
         className={
