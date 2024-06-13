@@ -34,6 +34,9 @@ module.exports = withMT({
         '.bcc-footer': {
           backgroundColor: '#c0c0aa',
         },
+        '.smooth-opacity': {
+          animation: 'fadeIn 1s 1s ease-in forwards',
+        },
       };
       addUtilities(newUtilities);
     }),

@@ -12,6 +12,7 @@ import { faHouse } from '@fortawesome/free-solid-svg-icons';
 const Header = () => {
   const { isLogged, toggleLogin } = useContext(Context);
   const { userId, setUser } = useContext(Context);
+  const { accessToken, setAccessToken } = useContext(Context);
 
   // Firebase project configuration
   const firebaseConfig = {
@@ -30,6 +31,8 @@ const Header = () => {
       .then(() => {
         toggleLogin();
         setUser(null);
+        setAccessToken(null);
+        localStorage.removeItem('token');
         console.log('Sign-out successful');
       })
       .catch((error) => {

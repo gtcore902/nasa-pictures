@@ -1,16 +1,12 @@
 import { Context } from '../Context';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
-import {
-  getFavourites,
-  handleRemoveFavourites,
-} from '../components/setDocuments';
+import { getFavourites } from '../components/setDocuments';
 import { getFirestore } from 'firebase/firestore';
 import config from '../firebase-config';
 import emptyFolder from '../assets/empty-folder.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import Grid from '../components/Grid';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -20,14 +16,15 @@ import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { targetScroll, handleScroll } from '../HandleScroll';
 
 const Home = () => {
-  const { isLogged, toggleLogin } = useContext(Context);
-  const { userId, setUser } = useContext(Context);
+  const { isLogged, userId } = useContext(Context);
+  const [isLoading, setIsLoading] = useState(true);
   const [favourites, setFavourites] = useState([]);
   const [filteredDatas, setFilteredDatas] = useState([]);
   const [picturesFirstCol, setPicturesFirstColumn] = useState([]);
   const [picturesSecondCol, setPicturesSecondColumn] = useState([]);
   const [picturesLastCol, setPicturesLastCol] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const navigate = useNavigate();
 
   // Firebase project configuration
   const firebaseConfig = {
@@ -46,15 +43,9 @@ const Home = () => {
   useEffect(() => {
     if (isLogged) {
       getFavourites(db, userId, setFavourites);
-      console.log(userId);
+      setIsLoading(false);
     }
-  }, []);
-
-  useEffect(() => {
-    if (isLogged) {
-      console.log(favourites);
-    }
-  }, [favourites, isLogged]);
+  }, [isLogged]);
 
   useEffect(() => {
     setFilteredDatas(favourites);
@@ -90,25 +81,14 @@ const Home = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // useEffect(() => {
-  //   filteredDatas.map((data) =>
-  //     console.log(data.timestamp.nanoseconds + data.timestamp.seconds)
-  //   );
-  //   const filteredTimeStamp = filteredDatas.sort(
-  //     (a, b) =>
-  //       a.timestamp.nanoseconds +
-  //       a.timestamp.seconds -
-  //       (b.timestamp.nanoseconds + b.timestamp.seconds),
-  //     0
-  //   );
-  //   console.log(filteredTimeStamp);
-  //   setFilteredDatas(filteredTimeStamp);
-  // }, [filteredDatas]);
+  useEffect(() => {
+    !isLoading && navigate('/');
+  }, [isLogged]);
 
   return (
     <div>
       <Toaster />
-      {!isLogged && <Navigate to="/" replace={true} />}
+      {/* {!isLogged && <Navigate to="/" replace={true} />} */}
       <Header />
       <h2 className="text-xl font-bold text-center text-blue-600 dark:text-white mt-8 mb-8 md:mb-16 mt-0 md:mt-8">
         Your favourites
@@ -133,7 +113,7 @@ const Home = () => {
         ) : (
           <div className="text-center">
             <img
-              className="mx-auto w-3/4 md:w-1/3 pt-12 grayscale"
+              className="smooth-opacity opacity-0 mx-auto w-3/4 md:w-1/3 pt-12 grayscale"
               src={emptyFolder}
               alt="dossier vide"
             />
