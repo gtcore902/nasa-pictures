@@ -9,6 +9,7 @@ import emptyFolder from '../assets/empty-folder.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Grid from '../components/Grid';
 import Header from '../components/Header';
+import CamFilterButtons from '../components/CamFilterButtons';
 import Footer from '../components/Footer';
 import { notify } from '../components/Notifications';
 import { Toaster } from 'react-hot-toast';
@@ -23,6 +24,7 @@ const Home = () => {
   const [picturesFirstCol, setPicturesFirstColumn] = useState([]);
   const [picturesSecondCol, setPicturesSecondColumn] = useState([]);
   const [picturesLastCol, setPicturesLastCol] = useState([]);
+  const [listCam, setListCam] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
   const navigate = useNavigate();
 
@@ -39,6 +41,17 @@ const Home = () => {
   const db = getFirestore(app);
 
   const columns = [picturesFirstCol, picturesSecondCol, picturesLastCol];
+
+  const sortCam = (event) => {
+    console.log(event.target.id);
+    if (event.target.id === 'All') {
+      setFilteredDatas(favourites.filter((data) => data));
+    } else if (event.target.id !== 'All') {
+      setFilteredDatas(
+        favourites.filter((data) => data.camera === event.target.id)
+      );
+    }
+  };
 
   useEffect(() => {
     if (isLogged) {
@@ -81,6 +94,16 @@ const Home = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  /**
+   * Set new set for all cameras
+   */
+  useEffect(() => {
+    const camList = new Set();
+    favourites.filter((data) => camList.add(data?.camera));
+    setListCam(['All'].concat(...camList));
+    console.log(camList);
+  }, [favourites]);
+
   useEffect(() => {
     !isLoading && navigate('/');
   }, [isLogged]);
@@ -93,6 +116,12 @@ const Home = () => {
       <h2 className="text-xl font-bold text-center text-blue-600 dark:text-white mt-8 mb-8 md:mb-16 mt-0 md:mt-8">
         Your favourites
       </h2>
+      <h3 className="text-lg text-center md:text-left text-gray-800 dark:text-white mx-2 my-8 md:mx-32">
+        You have {favourites.length} pictures in favorites.
+      </h3>
+
+      <CamFilterButtons listCam={listCam} sortCam={sortCam} />
+
       <div className="max-w-[1920px] mx-auto pb-48">
         {favourites.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-[24px] items-start md:text-left mx-2 mt-8 pb-48 md:mx-32 md:mt-8">
