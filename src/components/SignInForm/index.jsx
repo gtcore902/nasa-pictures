@@ -24,6 +24,7 @@ const SignInForm = () => {
   };
   const app = initializeApp(firebaseConfig);
   const auth = getAuth();
+
   const loginUser = async (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {

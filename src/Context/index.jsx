@@ -15,7 +15,6 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-// console.log(auth.currentUser.accessToken);
 
 const Provider = ({ children }) => {
   const [isLogged, setIsLogged] = useState(false);
@@ -53,22 +52,6 @@ const Provider = ({ children }) => {
   const addFavourite = (value) => {
     setFavourites(...favourites, value);
   };
-
-  // useEffect(() => {
-  //   // Verify token
-  //   const token = localStorage.getItem('token');
-  //   if (!token) {
-  //     setIsLogged(false);
-  //   }
-
-  //   if (token) {
-  //     console.log(auth.currentUser.accessToken);
-
-  //     token === auth?.currentUser?.accessToken
-  //       ? setIsLogged(true)
-  //       : setIsLogged(false);
-  //   }
-  // }, []);
 
   return (
     <Context.Provider
