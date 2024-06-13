@@ -121,13 +121,13 @@ const Home = () => {
       <h2 className="text-xl font-bold text-center text-blue-600 dark:text-white mt-8 mb-8 md:mb-16 mt-0 md:mt-8">
         Your favourites
       </h2>
-      <h3 className="text-lg text-center md:text-left text-gray-800 dark:text-white mx-2 my-8 md:mx-32">
-        You have {favourites.length} pictures in favorites.
-      </h3>
-
-      <CamFilterButtons listCam={listCam} sortCam={sortCam} />
-
       <div className="max-w-[1920px] mx-auto pb-48">
+        <h3 className="text-lg text-center md:text-left text-gray-800 dark:text-white mx-2 my-8 md:mx-32">
+          You have {favourites.length} pictures in favorites.
+        </h3>
+
+        <CamFilterButtons listCam={listCam} sortCam={sortCam} />
+
         {favourites.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-[24px] items-start md:text-left mx-2 mt-8 pb-48 md:mx-32 md:mt-8">
             {columns.map((column, index) => (
