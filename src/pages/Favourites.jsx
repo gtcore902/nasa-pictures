@@ -61,7 +61,12 @@ const Home = () => {
   }, [isLogged]);
 
   useEffect(() => {
-    setFilteredDatas(favourites);
+    // setFilteredDatas(favourites);
+    const sortedDatas = favourites.sort(
+      (a, b) => new Date(a.earth_date) - new Date(b.earth_date),
+      0
+    );
+    setFilteredDatas(sortedDatas);
   }, [favourites]);
 
   useEffect(() => {
