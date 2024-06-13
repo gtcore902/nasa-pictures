@@ -12,8 +12,8 @@ module.exports = withMT({
     extend: {
       keyframes: {
         fadeIn: {
-          '0%': { opacity: 0 },
-          '100%': { opacity: 1 },
+          '0%': { opacity: 0, translate: -10 },
+          '100%': { opacity: 1, translate: 0 },
         },
       },
       animation: {

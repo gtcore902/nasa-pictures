@@ -25,9 +25,10 @@ const Grid = ({
   return (
     <div className="grid grid-cols-1 gap-2 md:gap-[24px]">
       {collection.map((picture, index) => (
-        <div key={index} className="relative">
+        <div key={index} className="relative opacity-0 animate-fadeIn">
           <img
-            className="w-full opacity-0 animate-fadeIn"
+            // className="w-full opacity-0 animate-fadeIn"
+            className="w-full"
             key={index}
             src={picture.img_src}
             alt={picture.img_src}
@@ -35,7 +36,7 @@ const Grid = ({
           {!isLogged && (
             <FontAwesomeIcon
               icon={faHeartCirclePlus}
-              className="absolute top-5 right-5 text-white cursor-pointer"
+              className="absolute top-5 right-5 text-white cursor-pointer md:hover:scale-105 lg:hover:scale-105"
               size="xl"
               onClick={() => navigate('/signin')}
             />
@@ -47,7 +48,7 @@ const Grid = ({
               !favouritesPage ? (
                 <FontAwesomeIcon
                   icon={faHeartSolid}
-                  className="absolute top-5 right-5 text-white cursor-pointer"
+                  className="absolute top-5 right-5 text-white cursor-pointer md:hover:scale-105 lg:hover:scale-105"
                   size="xl"
                   onClick={() =>
                     handleRemoveFavourites(
@@ -64,7 +65,7 @@ const Grid = ({
               ) : (
                 <FontAwesomeIcon
                   icon={faTrash}
-                  className="absolute top-5 right-5 text-white cursor-pointer"
+                  className="absolute top-5 right-5 text-white cursor-pointer md:hover:scale-105 lg:hover:scale-105"
                   size="xl"
                   onClick={() =>
                     handleRemoveFavourites(
@@ -82,7 +83,7 @@ const Grid = ({
             ) : (
               <FontAwesomeIcon
                 icon={faHeartRegular}
-                className="absolute top-5 right-5 text-white cursor-pointer"
+                className="absolute top-5 right-5 text-white cursor-pointer md:hover:scale-105 lg:hover:scale-105"
                 size="xl"
                 onClick={() =>
                   handleAddFavourites(
