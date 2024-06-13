@@ -1,7 +1,6 @@
 import { Context } from '../../Context';
 import { useContext, useState, useEffect } from 'react';
 import { rovers } from '../Rovers';
-import roverPicture from '../../assets/rover-robot.svg';
 import { initializeApp } from 'firebase/app';
 import { getFavourites } from '../setDocuments';
 import CamFilterButtons from '../../components/CamFilterButtons';
@@ -133,49 +132,52 @@ const Content = () => {
 
       <CamFilterButtons listCam={listCam} sortCam={sortCam} />
 
-      {isLoading ? (
+      {/* {isLoading ? (
         <img
           src={roverPicture}
           className="max-w-24 animate-pulse mx-auto"
           alt="Rover illustration"
         />
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-[24px] items-start md:text-left mx-2 my-8 md:mx-32 md:my-8">
-          <Grid
-            datas={datas}
-            collection={picturesFirstCol}
-            isLogged={isLogged}
-            favourites={favourites}
-            db={db}
-            userId={userId}
-            setFavourites={setFavourites}
-            notify={notify}
-            favouritesPage={false}
-          />
-          <Grid
-            datas={datas}
-            collection={picturesSecondCol}
-            isLogged={isLogged}
-            favourites={favourites}
-            db={db}
-            userId={userId}
-            setFavourites={setFavourites}
-            notify={notify}
-            favouritesPage={false}
-          />
-          <Grid
-            datas={datas}
-            collection={picturesLastCol}
-            isLogged={isLogged}
-            favourites={favourites}
-            db={db}
-            userId={userId}
-            setFavourites={setFavourites}
-            notify={notify}
-            favouritesPage={false}
-          />
-        </div>
-      )}
+      ) : ( */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-[24px] items-start md:text-left mx-2 my-8 md:mx-32 md:my-8">
+        <Grid
+          datas={datas}
+          collection={picturesFirstCol}
+          isLogged={isLogged}
+          favourites={favourites}
+          db={db}
+          userId={userId}
+          setFavourites={setFavourites}
+          notify={notify}
+          favouritesPage={false}
+          isLoading={isLoading}
+        />
+        <Grid
+          datas={datas}
+          collection={picturesSecondCol}
+          isLogged={isLogged}
+          favourites={favourites}
+          db={db}
+          userId={userId}
+          setFavourites={setFavourites}
+          notify={notify}
+          favouritesPage={false}
+          isLoading={isLoading}
+        />
+        <Grid
+          datas={datas}
+          collection={picturesLastCol}
+          isLogged={isLogged}
+          favourites={favourites}
+          db={db}
+          userId={userId}
+          setFavourites={setFavourites}
+          notify={notify}
+          favouritesPage={false}
+          isLoading={isLoading}
+        />
+      </div>
+      {/* )} */}
     </div>
   );
 };

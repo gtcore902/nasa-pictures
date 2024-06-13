@@ -19,16 +19,23 @@ const Grid = ({
   setFavourites,
   notify,
   favouritesPage,
+  isLoading,
 }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="grid grid-cols-1 gap-2 md:gap-[24px]">
+    <div
+      className={
+        isLoading
+          ? 'grid grid-cols-1 gap-2 md:gap-[24px] bg-gray-300 min-h-28 rounded-lg animate-pulse'
+          : 'grid grid-cols-1 gap-2 md:gap-[24px] min-h-28'
+      }
+    >
       {collection.map((picture, index) => (
-        <div key={index} className="relative opacity-0 animate-fadeIn">
+        <div key={index} className="relative animate-fadeIn opacity-0">
           <img
             // className="w-full opacity-0 animate-fadeIn"
-            className="w-full"
+            className="w-full rounded-lg"
             key={index}
             src={picture.img_src}
             alt={picture.img_src}

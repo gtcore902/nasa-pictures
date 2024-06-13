@@ -141,6 +141,7 @@ const Home = () => {
                 setFavourites={setFavourites}
                 notify={notify}
                 favouritesPage={true}
+                isLoading={isLoading}
               />
             ))}
           </div>
