@@ -1,5 +1,4 @@
 // Get a list of songs from database
-import { faV } from '@fortawesome/free-solid-svg-icons';
 import {
   collection,
   getDocs,
@@ -120,9 +119,6 @@ export const handleRemoveFavourites = async (
   const ref = dataset.filter(
     (favourite) => favourite[img_src] === picture[img_src]
   );
-  // const ref = favourites[0].id;
-  // dataset.map((favourite) => console.log(favourite.img_scr));
-  // console.log(favourites);
   console.log(ref);
   await removeFavourite(db, userId, ref[0].id);
   const updatedFavourites = dataset.filter(

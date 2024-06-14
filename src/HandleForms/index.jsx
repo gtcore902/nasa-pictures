@@ -7,7 +7,6 @@ export const handleChange = (event, setInputs) => {
   const name = event.target.name;
   const value = event.target.value;
   setInputs((values) => ({ ...values, [name]: value }));
-  // console.log(inputs);
 };
 
 /**

@@ -1,5 +1,5 @@
 import { Context } from '../Context';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getFavourites } from '../components/setDocuments';
@@ -61,7 +61,6 @@ const Home = () => {
   }, [isLogged]);
 
   useEffect(() => {
-    // setFilteredDatas(favourites);
     const sortedDatas = favourites.sort(
       (a, b) => new Date(a.earth_date) - new Date(b.earth_date),
       0
@@ -76,7 +75,6 @@ const Home = () => {
         img_src: data.img_src,
         earth_date: data.earth_date,
         camera: data.camera.full_name,
-        // id: data.id,
       })
     );
     setPicturesFirstColumn(

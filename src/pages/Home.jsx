@@ -1,14 +1,9 @@
 import Header from '../components/Header';
 import Content from '../components/Content';
 import { Context } from '../Context';
-// import { initializeApp } from 'firebase/app';
-// import { getFavourites } from '../components/setDocuments';
-// import { getFirestore, serverTimestamp } from 'firebase/firestore';
-// import config from '../firebase-config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
-// import styles from '../styles/Footer.module.css';
 import { useContext, useEffect, useState } from 'react';
 import { targetScroll, handleScroll } from '../HandleScroll';
 
@@ -37,7 +32,6 @@ const Home = () => {
         size="2xl"
       />
       <Footer style="absolute bottom-0 left-0 right-0 bcc-footer p-8 border-t border-t-gray-700 text-center" />
-      {/* <Footer className={styles.footer} /> */}
     </div>
   );
 };
