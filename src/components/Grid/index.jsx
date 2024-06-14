@@ -34,7 +34,6 @@ const Grid = ({
       {collection.map((picture, index) => (
         <div key={index} className="relative animate-fadeIn opacity-0">
           <img
-            // className="w-full opacity-0 animate-fadeIn"
             className="w-full rounded-lg"
             key={index}
             src={picture.img_src}
