@@ -2,7 +2,7 @@ import Header from '../components/Header';
 import SignUpForm from '../components/SignUpForm';
 import Footer from '../components/Footer';
 
-const Signup = () => {
+const SignUp = () => {
   return (
     <div>
       <Header />
@@ -12,4 +12,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignUp;
